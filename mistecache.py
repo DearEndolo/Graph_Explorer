@@ -23,12 +23,13 @@ def creerMistecache():
 
     poisson.addExit(animal)
     viande.addExit(animal)
-    
+
 
 
 
 
 def affiche_aide(topic):
+    """Affiche l'aide en fonction du topic"""
     print(f"---- HELP {topic.upper()} ----")
     match topic:
         case "add":
@@ -38,6 +39,8 @@ def affiche_aide(topic):
             print("add <instanceName> isa <conceptNode>, <conceptNode>")
             print("-- EXAMPLE --")
             print("add Hareng isa Poisson")
+            print("add Melon - Jambon cru isa Entrée, Dessert")
+
 
 
 def main():
@@ -51,7 +54,7 @@ def main():
         help = regex.match(r"^help (.*)$", msg)
         if(help):
             affiche_aide(help.group(1))
-        ajoute = regex.match(r"add (.*) (.*) (.*)",msg)
+        ajoute = regex.match(r"add (.*) isa (.*)",msg)
 
 
 
