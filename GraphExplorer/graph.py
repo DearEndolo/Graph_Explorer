@@ -15,12 +15,12 @@ class Graph(object):
 	# Procédure de suppression d'un noeud du graphe
 	def deleteNode(self, node):
 		for noeud in self.set:
-			if node in getExits(self.set):
-				deleteExit(node,noeud)
-			if node in getEntries(self.set):
-				deleteEntry(node,noeud)
+			if node in self.getExits(self.set):
+				self.deleteExit(node,noeud)
+			if node in self.getEntries(self.set):
+				self.deleteEntry(node,noeud)
 
-		self.set.remove()
+		self.set.remove(node)
 
 
 	# Fonction de récupération des noeuds du graphes
