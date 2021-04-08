@@ -1,46 +1,25 @@
-from GraphExplorer import ConceptNode, InstanceNode, Graph
-import sys
-import re as regex
-
-
-def creerMistecache():
-    """CONSTANTE ATTRIBUTS"""
-
-    attributsNourri = {"nom":"","origine":""}
-    """Fonction qui créer puis retourne le graphe de Mistecache"""
-    nourriture = ConceptNode("Nourritures",)
-    recette = ConceptNode("Recettes")
-    entree = ConceptNode("Entrées")
-    plat = ConceptNode("Plats")
-    dessert = ConceptNode("Dessert")
-    ingredient = ConceptNode("Ingrédients")
-    vegetal = ConceptNode("Végétal")
-    animal = ConceptNode("Animal")
-    viande = ConceptNode("Viande")
-    poisson = ConceptNode("Poisson")
-
-
-
-    poisson.addExit(animal)
-    viande.addExit(animal)
+from model import *
 
 
 
 
 
-def affiche_aide(topic):
-    """Affiche l'aide en fonction du topic"""
-    print(f"---- HELP {topic.upper()} ----")
-    match topic:
-        case "add":
-            print("The command add create an instance of one or multiple concept(s)")
-            print("-- SYNTAX --")
-            print("add <instanceName> isa <conceptNode>")
-            print("add <instanceName> isa <conceptNode>, <conceptNode>")
-            print("-- EXAMPLE --")
-            print("add Hareng isa Poisson")
-            print("add Melon - Jambon cru isa Entrée, Dessert")
+##RECHERCHE un concept
 
+def recherche(graph ,liste_nom):
+    for nom in liste_nom:
+
+node = graph.search(nom)
+        node.show()
+tab = node.getEntries()
+        res.append(node)
+        print(node)
+        res += tab
+
+        for elem in tab:
+            print(elem)
+
+    return res
 
 
 def main():
@@ -54,7 +33,42 @@ def main():
         help = regex.match(r"^help (.*)$", msg)
         if(help):
             affiche_aide(help.group(1))
-        ajoute = regex.match(r"add (.*) isa (.*)",msg)
+        ajoute = regex.match(r"^add (.*) isa (.*)$",msg)
+        if(ajoute):
+            name = ajoute.group(1)
+            concepts = ajoute.group(2).split(",")
+            list_concepts = list()
+            for concept in concepts:
+                concept = skip_spaces(concept)
+                list_concepts.append(concept)
+            ajoute(mistecache,name, list_concepts)
+
+        #nomInstance ->nomAttr -> valeur
+        ajouteAtt = regex.match(r"^addAttribut (.*) (.*) (.*)$", msg)
+        if(ajouteAtt):
+            name = ajouteAtt.group(1)
+            attributKeyName = ajouteAtt.group(2)
+            value = ajouteAtt.group(3)
+            ajouteAtt(name, attributKeyName, value)
+
+        #nomInstance -> nomAttr -> nouvelle valeur
+        changeAttr = regex.match(r"^changeAttr (.*) (.*) (.*)$", msg)
+        if(changeAttr):
+            nomInstance = changeAttr.group(1)
+            nomAttr = changeAttr.group(2)
+            valeur = changeAttr.group(3)
+            changeAttribut(nomInstance, nomAttr, valeur)
+
+        #nomInstance -> suppression
+        supprimeNoeud = regex.match(r"^supprime (.*)$", msg)
+        if(supprimeNoeud):
+            nomInstance = supprimeNoeud.group(1)
+            #TODO
+            changeAttribut(nomInstance, nomAttr, valeur)
+
+
+
+
 
 
 

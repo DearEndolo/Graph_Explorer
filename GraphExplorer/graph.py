@@ -12,6 +12,13 @@ class Graph(object):
 		else:
 			self.set.append(n)
 
+	# Procédure de suppression d'un noeud du graphe
+	def deleteNode(self, node):
+		for noeud in self.set
+:
+
+
+
 	# Fonction de récupération des noeuds du graphes
 	# Sorties : liste de noeud
 	def getNodeSet(self):
@@ -76,3 +83,9 @@ class Graph(object):
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
 						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
+
+	def search(self, name):
+		for node in self.getNodeSet():
+			if node.getName() == name:
+				return node
+		return None
