@@ -4,22 +4,7 @@ from model import *
 
 
 
-##RECHERCHE un concept
 
-def recherche(graph ,liste_nom):
-    for nom in liste_nom:
-
-node = graph.search(nom)
-        node.show()
-tab = node.getEntries()
-        res.append(node)
-        print(node)
-        res += tab
-
-        for elem in tab:
-            print(elem)
-
-    return res
 
 
 def main():
