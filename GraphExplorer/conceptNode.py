@@ -7,11 +7,12 @@ class ConceptNode(Node):
 		self.attributs = attributs.copy()
 
 
-	def get(self, key):
+	def getAttr(self, key):
 		return self.attributs[key]
 
-	def add(self, key, value):
+	def addAttr(self, key, value):
 		self.attributs[key] = value
 		# return self.attributs[key] == value
 
-
+	def updateAttr(self, key, value):
+		self.attributs[key] = value

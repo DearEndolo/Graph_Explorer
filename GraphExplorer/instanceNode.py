@@ -7,13 +7,21 @@ class InstanceNode(Node):
 		super(InstanceNode, self).__init__()
 		self.attributs = attributs.copy()
 
+	def show(self):
+		print("{"+self.name+":")
+		for attr in self.attributs:
+			print("\t"+attr+": "+self.attributs[attr])
+		print("}")
 
-	def get(self, key):
+	def getAttr(self, key):
 		return self.attributs[key]
 
-	def add(self, key, value):
+	def addAttr(self, key, value):
 		self.attributs[key] = value
 		# return self.attributs[key] == value
+
+	def updateAttr(self, key, value):
+		self.attributs[key] = value
 
 	def addExit(self, node, weight = 1):
 		if(not(type(node) == ConceptNode)):
