@@ -70,7 +70,7 @@ class Node(object):
 		else:
 			if(self.previousNodes == None):
 				self.previousNodes = dict()
-			self.previousNodes.append(node)
+			self.previousNodes[node] = weight
 			if(not(self in node.getExits())):
 				node.addExit(self, weight)
 
