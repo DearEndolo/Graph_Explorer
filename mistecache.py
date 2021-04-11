@@ -48,8 +48,8 @@ def main():
         supprimeNoeud = regex.match(r"^supprime (.*)$", msg)
         if(supprimeNoeud):
             nomInstance = supprimeNoeud.group(1)
-            noeud = search(mistecache,nomInstance)
-            deleteNode(noeud)
+            noeud = mistecache.search(mistecache,nomInstance)
+            mistecache.deleteNode(mistecache,noeud)
 
 
 
