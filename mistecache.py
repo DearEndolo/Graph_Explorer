@@ -1,9 +1,11 @@
 from model import *
+from Fenetre import *
 
 def main():
     """Procédure principale"""
     fini = False
     mistecache = creerMistecache()
+    # fenetre = Fenetre()
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
     while not(fini):
         print("Que voulez vous voir ?")
