@@ -12,7 +12,7 @@ class ConceptNode(Node):
 
 	def addAttr(self, key, value):
 		self.attributs[key] = value
-		# return self.attributs[key] == value
+		return self.attributs[key] == value
 
 	def updateAttr(self, key, value):
 		self.attributs[key] = value
