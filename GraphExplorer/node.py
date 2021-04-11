@@ -64,7 +64,7 @@ class Node(object):
 	# Procédure de liage de noeud
 	# Si graphe non orienté : lie le noeud a un noeud d'entré
 	# Entrée : noeud à lier
-	def addEntry(self, node):
+	def addEntry(self, node, weight = 1):
 		if(not(self.isOriented)):
 			print("The node " + str(self) + " is not part of an oriented graph.\nPlease use addNode(Node) method on that node.")
 		else:
