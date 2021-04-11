@@ -1,4 +1,5 @@
 from guizero import *
+from .Vectors import *
 
 class Fenetre(App):
     HEIGHT = 500
@@ -10,17 +11,19 @@ class Fenetre(App):
     def __init__(self):
         super().__init__()
         self._initWidgets()
-        self.updateCanvas()
+        self.model = None # On va pointer vers l'obj de graph ici
+        self.noeudsPos = {}    # { un noeud : Vector2D } pour dessiner les noeuds sur le canvas
 
         # On affiche l'application
         self.display()
+        self.updateCanvas()
 
 
     def _initWidgets(self):
         self.title = "Mistec' Hachée"
         self.height = self.HEIGHT
         self.width = self.WIDTH
-        self.on_close(self.quitter)
+        self.when_closed = self.quitter
 
         # Les options de la barre de menu
         self.menuBar = MenuBar(self,
@@ -50,11 +53,11 @@ class Fenetre(App):
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color="white")
 
 
-    def dessinePoint(self):
+    def dessinePoint(self, noeud, pos: Vector2D):
         pass
 
 
-    def dessineLigne(self):
+    def dessineLigne(self, de: Vector2D, vers: Vector2D):
         pass
 
 
