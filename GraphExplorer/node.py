@@ -1,6 +1,3 @@
-from distributed.worker import weight
-
-
 class Node(object):
 
 	# Constructeur
