@@ -1,3 +1,6 @@
+from distributed.worker import weight
+
+
 class Node(object):
 
 	# Constructeur
@@ -79,7 +82,7 @@ class Node(object):
 	#Entrée: le noeud concerné
 	def deleteEntry(self,node):
 		if(not(self.isOriented)):
-			print("The node " + str(self) + " is not part of an oriented graph.\n)
+			print("The node " + str(self) + " is not part of an oriented graph.\n")
 		else:
 			self.previousNodes.remove(node)
 
@@ -88,7 +91,7 @@ class Node(object):
 	#Entrée: le noeud concerné
 	def deleteExit(self,node):
 		if(not(self.isOriented)):
-			print("The node " + str(self) + " is not part of an oriented graph.\n)
+			print("The node " + str(self) + " is not part of an oriented graph.\n")
 		else:
 			self.nextNodes.remove(node)
 

@@ -48,8 +48,9 @@ def main():
         supprimeNoeud = regex.match(r"^supprime (.*)$", msg)
         if(supprimeNoeud):
             nomInstance = supprimeNoeud.group(1)
-            #TODO
-            changeAttribut(nomInstance, nomAttr, valeur)
+            noeud = search(mistecache,nomInstance)
+            deleteNode(noeud)
+
 
 
 if __name__ == "__main__":
