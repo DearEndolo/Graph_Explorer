@@ -12,7 +12,7 @@ def creerMistecache():
     """CONSTANTE ATTRIBUTS"""
 
 
-    """Fonction qui cr?er puis retourne le graphe de Mistecache"""
+    """Fonction qui créer puis retourne le graphe de Mistecache"""
 
     nourriture = ConceptNode("Nourritures")
     recette = ConceptNode("Recettes")

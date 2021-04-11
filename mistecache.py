@@ -40,11 +40,11 @@ def main():
             changeAttribut(nomInstance, nomAttr, valeur)
 
         #nomInstance -> suppression
-        supprimeNoeud = regex.match(r"^supprime (.*)$", msg)
+        supprimeNoeud = regex.match(r"^delete (.*)$", msg)
         if(supprimeNoeud):
             nomInstance = supprimeNoeud.group(1)
-            noeud = mistecache.search(mistecache,nomInstance)
-            mistecache.deleteNode(mistecache,noeud)
+            noeud = mistecache.search(nomInstance)
+            mistecache.deleteNode(noeud)
 
 
 
