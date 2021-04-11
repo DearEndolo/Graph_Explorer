@@ -1,12 +1,5 @@
 from model import *
 
-
-
-
-
-
-
-
 def main():
     """Procédure principale"""
     fini = False
