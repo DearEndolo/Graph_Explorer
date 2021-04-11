@@ -5,13 +5,14 @@ import re as regex
 
 from GraphExplorer.conceptNode import ConceptNode
 from GraphExplorer.instanceNode import InstanceNode
+
 from TypeEnum import *
 
 def creerMistecache():
     """CONSTANTE ATTRIBUTS"""
 
 
-    """Fonction qui créer puis retourne le graphe de Mistecache"""
+    """Fonction qui cr?er puis retourne le graphe de Mistecache"""
 
     nourriture = ConceptNode("Nourritures")
     recette = ConceptNode("Recettes")
@@ -54,14 +55,14 @@ def affiche_aide(topic):
         print("add <instanceName> isa <conceptNode>, <conceptNode>")
         print("-- EXAMPLE --")
         print("add Hareng isa Poisson")
-        print("add Melon - Jambon cru isa Entrée, Dessert")
+        print("add Melon - Jambon cru isa Entr?e, Dessert")
     if (topic=="ajouteAtt"):
         print("The command update the attributs of a instance")
         print("-- SYNTAX --")
         print("changeAttr <instanceName> <attributKeyName> <value> ")
         print("-- EXAMPLE --")
         print("changeAttr Hareng ph 7")
-        print("changeAttr Melon cironconférance 18")
+        print("changeAttr Melon cironconf?rance 18")
     if (topic=="changeAttr"):
         print("The command update the attributs of a instance")
         print("-- SYNTAX --")
@@ -97,7 +98,7 @@ def recherche(graph, liste_nom):
 def ajoute(graph, name, listConcepts):
     newNode = mistecache.addNode(InstanceNode(name))
     for concept in listConcepts:
-        conceptNode = rechercherNoeud(mistecache, concept)
+        conceptNode = graph.search(concept)
         newNode.addExit(conceptNode, relation.INSTANCE)
 
 def ajouteAtt(graph, name, attributKeyName, value):
@@ -109,6 +110,6 @@ def ajouteAtt(graph, name, attributKeyName, value):
 
 def changeAttribut(graph, name, attributKeyName, value):
     noeud = graph.search(name)
-    if !noeud.getAttr(attributKeyName):
+    if noeud.getAttr(attributKeyName)==None:
         print(f"The attribut {attributKeyName} does not exist")
     noeud.updateAttr(attributKeyName, value)
