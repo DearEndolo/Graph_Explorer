@@ -1,4 +1,4 @@
-from node import Node
+from GraphExplorer import Node
 
 class ConceptNode(Node):
 	"""docstring for ConceptNode"""

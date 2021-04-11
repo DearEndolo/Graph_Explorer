@@ -1,4 +1,4 @@
-from node import Node
+from GraphExplorer import Node
 
 class InstanceNode(Node):
 	"""docstring for InstanceNode"""
