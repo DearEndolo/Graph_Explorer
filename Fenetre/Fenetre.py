@@ -57,9 +57,7 @@ class Fenetre(App):
         posi = Vector2D(50, 10)
 
         if self.model != None:
-            for nd in self.model.getNodeSet():
-                self.dessinePoint(nd, posi, coul=Couleurs.ROUGE, taille=25)
-                posi += Vector2D(0, 10)
+            graph = self.model.dijkstra( self.model.getNodeSet()[0] )
 
         # self.canvas.show()
         # Test

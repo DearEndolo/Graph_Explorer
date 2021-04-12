@@ -8,4 +8,6 @@ from Fenetre import *
 from model import creerMistecache
 
 misteca = creerMistecache()
-fenetre = Fenetre(misteca)
+nd = misteca.getNodeSet()
+misteca.dijkstra( nd[0] )
+# fenetre = Fenetre(misteca)
