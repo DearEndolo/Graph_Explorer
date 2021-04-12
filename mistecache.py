@@ -31,7 +31,7 @@ def main():
             name = ajouteAtt.group(1)
             attributKeyName = ajouteAtt.group(2)
             value = ajouteAtt.group(3)
-            ajouteAtt(name, attributKeyName, value)
+            ajouteAtt(mistecache, name, attributKeyName, value)
 
         #nomInstance -> nomAttr -> nouvelle valeur
         changeAttr = regex.match(r"^changeAttr (.*) (.*) (.*)$", msg)
@@ -39,7 +39,7 @@ def main():
             nomInstance = changeAttr.group(1)
             nomAttr = changeAttr.group(2)
             valeur = changeAttr.group(3)
-            changeAttribut(nomInstance, nomAttr, valeur)
+            changeAttribut(mistecache, nomInstance, nomAttr, valeur)
 
         #nomInstance -> suppression
         supprimeNoeud = regex.match(r"^delete (.*)$", msg)

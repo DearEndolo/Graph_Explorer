@@ -13,7 +13,9 @@ class InstanceNode(Node):
 			print("\t"+attr+": "+self.attributs[attr])
 		print("}")
 
-	def getAttr(self, key):
+	def getAttr(self, key)
+		if(not(key in self.attributs.keys())):
+			return None
 		return self.attributs[key]
 
 	def addAttr(self, key, value):

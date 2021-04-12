@@ -98,3 +98,6 @@ class Graph(object):
 			if node.getName() == name:
 				return node
 		return None
+
+	def getNumber(self):
+		return len(self.set)
