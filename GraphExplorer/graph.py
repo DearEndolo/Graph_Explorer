@@ -99,5 +99,5 @@ class Graph(object):
 				return node
 		return None
 
-	def getNumber(self):
+	def size(self):
 		return len(self.set)
