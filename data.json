@@ -1,0 +1,64 @@
+{
+    "node": {
+        "Nourritures": {
+            "name": "Nourritures",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Recettes": {
+            "name": "Recettes",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Entrées": {
+            "name": "Entrées",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Plats": {
+            "name": "Plats",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Dessert": {
+            "name": "Dessert",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Ingrédients": {
+            "name": "Ingrédients",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Végétal": {
+            "name": "Végétal",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Animal": {
+            "name": "Animal",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Viande": {
+            "name": "Viande",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        },
+        "Poisson": {
+            "name": "Poisson",
+            "isOriented": true,
+            "InstanceNode": false,
+            "ConceptNode": true
+        }
+    }
+}

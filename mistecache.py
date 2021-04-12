@@ -8,6 +8,8 @@ def main():
     print(type(mistecache))
     # fenetre = Fenetre(mistecache)
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
+    sauvegarde(mistecache)
+    # print(mistecache.path_in_width(mistecache.search("Nourritures")))
     while not(fini):
         print("Que voulez vous voir ?")
         msg = input("")
