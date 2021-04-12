@@ -6,7 +6,7 @@ def main():
     fini = False
     mistecache = creerMistecache()
     print(type(mistecache))
-    # fenetre = Fenetre()
+    # fenetre = Fenetre(mistecache)
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
     while not(fini):
         print("Que voulez vous voir ?")

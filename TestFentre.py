@@ -5,5 +5,7 @@ je fais des tests avec le fentre po pO poo00 !
 
 
 from Fenetre import *
+from model import creerMistecache
 
-fenetre = Fenetre()
+misteca = creerMistecache()
+fenetre = Fenetre(misteca)
