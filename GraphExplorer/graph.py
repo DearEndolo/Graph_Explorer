@@ -54,6 +54,7 @@ class Graph(object):
 					nextNode.tree = node
 					nextNode.distance = node.distance + 1
 			node.color = "black"
+		return self.tabNiveau()
 
 	def deep_traversal(self, startingNode):
 		nodeStack = Stack()
@@ -73,6 +74,7 @@ class Graph(object):
 				if(not(child.marked)):
 					child.distance = node.distance + 1
 					nodeStack.stack(child)
+		return self.tabNiveau()
 
 	def __same_values_in_it(tab1, tab2):
 		res = len(tab1) == len(tab2)
@@ -80,6 +82,21 @@ class Graph(object):
 			for var in tab1:
 				res = res and var in tab2
 		return res
+
+	def maxNiveau(self):
+		maxi = 0
+		for node in self.getNodeSet():
+			if node.distance > maxi:
+				maxi = node.distance
+		return maxi
+
+	def tabNiveau(self):
+		tab = list()
+		for i in range(0,self.maxNiveau()+1):
+			tab.append(list())
+		for node in self.getNodeSet():
+			tab[node.distance].append(node)
+		return tab
 
 	def dijkstra(self, startingNode):
 		p = Graph()
@@ -107,6 +124,7 @@ class Graph(object):
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
 						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
+		return self.tabNiveau()
 
 	def search(self, name):
 		for node in self.getNodeSet():
