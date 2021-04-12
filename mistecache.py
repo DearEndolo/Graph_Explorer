@@ -5,6 +5,7 @@ def main():
     """Procédure principale"""
     fini = False
     mistecache = creerMistecache()
+    print(type(mistecache))
     # fenetre = Fenetre()
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
     while not(fini):
@@ -13,15 +14,16 @@ def main():
         help = regex.match(r"^help (.*)$", msg)
         if(help):
             affiche_aide(help.group(1))
-        ajoute = regex.match(r"^add (.*) isa (.*)$",msg)
-        if(ajoute):
-            name = ajoute.group(1)
-            concepts = ajoute.group(2).split(",")
+        ajouteregex = regex.match(r"^add (.*) isa (.*)$",msg)
+        if(ajouteregex):
+            name = ajouteregex.group(1)
+            concepts = ajouteregex.group(2).split(",")
             list_concepts = list()
             for concept in concepts:
                 concept = skip_spaces(concept)
                 list_concepts.append(concept)
-            ajoute(mistecache,name, list_concepts)
+            print(type(mistecache))
+            ajoute(mistecache, name, list_concepts)
 
         #nomInstance ->nomAttr -> valeur
         ajouteAtt = regex.match(r"^addAttribut (.*) (.*) (.*)$", msg)

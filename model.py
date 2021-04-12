@@ -48,7 +48,7 @@ def creerMistecache():
 def affiche_aide(topic):
     """Affiche l'aide en fonction du topic"""
     print(f"---- HELP {topic.upper()} ----")
-    if (topic=="Add"):
+    if (topic=="add"):
         print("The command add create an instance of one or multiple concept(s)")
         print("-- SYNTAX --")
         print("add <instanceName> isa <conceptNode>")
@@ -96,10 +96,12 @@ def recherche(graph, liste_nom):
     return res
 
 def ajoute(graph, name, listConcepts):
-    newNode = mistecache.addNode(InstanceNode(name))
+    print(type(graph))
+    newNode = InstanceNode(name)
+    graph.addNode(newNode)
     for concept in listConcepts:
         conceptNode = graph.search(concept)
-        newNode.addExit(conceptNode, relation.INSTANCE)
+        newNode.addExit(conceptNode, relation.Relation.INSTANCE)
 
 def ajouteAtt(graph, name, attributKeyName, value):
     noeud = graph.search(name)
