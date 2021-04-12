@@ -76,7 +76,7 @@ class Graph(object):
 					nodeStack.stack(child)
 		return self.tabNiveau()
 
-	def __same_values_in_it(tab1, tab2):
+	def __same_values_in_it(self, tab1, tab2):
 		res = len(tab1) == len(tab2)
 		if res:
 			for var in tab1:
@@ -119,7 +119,8 @@ class Graph(object):
 			for neighbour in nodeMinDistance.getEntries():
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
-						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
+						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour) # TODO - y faut recheck ça, ça ne marche pas dans tt les cas .
+
 			for neighbour in nodeMinDistance.getExits():
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):

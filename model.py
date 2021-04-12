@@ -148,13 +148,33 @@ def changeAttribut(graph, name, attributKeyName, value):
     noeud.updateAttr(attributKeyName, value)
 
 
-
-def sauvegarde():
+def sauvegarde(graph):
     data = {}
-    graph.search("Nourritures")
+    data["node"] = {}
+    listNoeuds = graph.getNodeSet()
+    for noeud in listNoeuds:
+        # print(noeud)
+        # print( f"name : {noeud.name}"
+        #        f" isOriented : {noeud.isOriented} "
+        #        f"previousNodes : {noeud.previousNodes} "
+        #        f"nextNodes : {noeud.nextNodes}")
+        temp = {
+            "name": noeud.name,
+            "isOriented": noeud.isOriented,
+            "InstanceNode": type(noeud) == InstanceNode,
+            "ConceptNode": type(noeud) == ConceptNode
+        }
+
+        data["node"][noeud.name]=temp
+        print(data["node"])
+        # self.isOriented = isOriented
+        # # Représentation des noeud précedents en dictionnaire python (clé : noeud, valeur : poids de l'arc)
+        # self.previousNodes = dict()
+        # # Représentation des noeud suivants en dictionnaire python (clé : noeud, valeur : poids de l'arc)
+        # self.nextNodes = dict()
 
     with open("data.json", "w") as outfile:
-        json.dump(data, outfile)
+        json.dump(data, outfile, indent=4, ensure_ascii=False)
 
 
 

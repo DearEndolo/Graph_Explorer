@@ -5,5 +5,9 @@ je fais des tests avec le fentre po pO poo00 !
 
 
 from Fenetre import *
+from model import creerMistecache
 
-fenetre = Fenetre()
+misteca = creerMistecache()
+nd = misteca.getNodeSet()
+misteca.dijkstra( nd[0] )
+# fenetre = Fenetre(misteca)

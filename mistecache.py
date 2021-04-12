@@ -5,10 +5,13 @@ def main():
     """Procédure principale"""
     fini = False
     mistecache = creerMistecache()
-
-    # fenetre = Fenetre()
+    
+    # fenetre = Fenetre(mistecache)
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
     affiche_commandes()
+    sauvegarde(mistecache)
+    # print(mistecache.path_in_width(mistecache.search("Nourritures")))
+
     while not(fini):
         print("Que voulez vous voir ?")
         msg = input("")
