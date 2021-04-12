@@ -1,7 +1,7 @@
-from .graph import *
-from .node import *
 from .queue import *
 from .stack import *
+from .graph import *
+from .node import *
 from .conceptNode import *
 from .instanceNode import *
 

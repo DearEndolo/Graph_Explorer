@@ -81,7 +81,9 @@ class Node(object):
 		if(not(self.isOriented)):
 			print("The node " + str(self) + " is not part of an oriented graph.\n")
 		else:
-			self.previousNodes.remove(node)
+			self.previousNodes.pop(node)
+			if(self in node.getExits()):
+				node.deleteExit(self)
 
 	#Procédure de suppression de noeuds en sortie
 	#Si graphe non orienté: ne fait orienté
@@ -90,7 +92,9 @@ class Node(object):
 		if(not(self.isOriented)):
 			print("The node " + str(self) + " is not part of an oriented graph.\n")
 		else:
-			self.nextNodes.remove(node)
+			self.nextNodes.pop(node)
+			if(self in node.getEntries()):
+				node.deleteEntry(self)
 
 	# Fonction qui retourne la liste des noeuds de sortie
 	# Sortie : liste de noeuds
@@ -134,3 +138,9 @@ class Node(object):
 
 	def getName(self):
 		return self.name
+
+	def deleteLinks(self):
+		for node in self.getEntries():
+			self.deleteEntry(node)
+		for node in self.getExits():
+			self.deleteExit(node)
