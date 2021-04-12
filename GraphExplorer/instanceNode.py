@@ -1,10 +1,10 @@
-from GraphExplorer import Node
+from GraphExplorer import Node, ConceptNode
 
 class InstanceNode(Node):
 	"""docstring for InstanceNode"""
 
 	def __init__(self, name, attributs = dict()):
-		super(InstanceNode, self).__init__()
+		super(InstanceNode, self).__init__(name, True)
 		self.attributs = attributs.copy()
 
 	def show(self):
@@ -13,7 +13,9 @@ class InstanceNode(Node):
 			print("\t"+attr+": "+self.attributs[attr])
 		print("}")
 
-	def getAttr(self, key):
+	def getAttr(self, key)
+		if(not(key in self.attributs.keys())):
+			return None
 		return self.attributs[key]
 
 	def addAttr(self, key, value):

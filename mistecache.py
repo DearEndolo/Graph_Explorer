@@ -5,6 +5,7 @@ def main():
     """Procédure principale"""
     fini = False
     mistecache = creerMistecache()
+    print(type(mistecache))
     # fenetre = Fenetre()
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
     while not(fini):
@@ -13,15 +14,16 @@ def main():
         help = regex.match(r"^help (.*)$", msg)
         if(help):
             affiche_aide(help.group(1))
-        ajoute = regex.match(r"^add (.*) isa (.*)$",msg)
-        if(ajoute):
-            name = ajoute.group(1)
-            concepts = ajoute.group(2).split(",")
+        ajouteregex = regex.match(r"^add (.*) isa (.*)$", msg)
+        if(ajouteregex):
+            name = ajouteregex.group(1)
+            concepts = ajouteregex.group(2).split(",")
             list_concepts = list()
             for concept in concepts:
                 concept = skip_spaces(concept)
                 list_concepts.append(concept)
-            ajoute(mistecache,name, list_concepts)
+            print(type(mistecache))
+            ajoute(mistecache, name, list_concepts)
 
         #nomInstance ->nomAttr -> valeur
         ajouteAtt = regex.match(r"^addAttribut (.*) (.*) (.*)$", msg)
@@ -29,7 +31,7 @@ def main():
             name = ajouteAtt.group(1)
             attributKeyName = ajouteAtt.group(2)
             value = ajouteAtt.group(3)
-            ajouteAtt(name, attributKeyName, value)
+            ajouteAtt(mistecache, name, attributKeyName, value)
 
         #nomInstance -> nomAttr -> nouvelle valeur
         changeAttr = regex.match(r"^changeAttr (.*) (.*) (.*)$", msg)
@@ -37,15 +39,21 @@ def main():
             nomInstance = changeAttr.group(1)
             nomAttr = changeAttr.group(2)
             valeur = changeAttr.group(3)
-            changeAttribut(nomInstance, nomAttr, valeur)
+            changeAttribut(mistecache, nomInstance, nomAttr, valeur)
 
         #nomInstance -> suppression
         supprimeNoeud = regex.match(r"^delete (.*)$", msg)
         if(supprimeNoeud):
             nomInstance = supprimeNoeud.group(1)
             noeud = mistecache.search(nomInstance)
-            mistecache.deleteNode(noeud)
-
+            if(type(noeud) == InstanceNode):
+                mistecache.deleteNode(noeud)
+            else:
+                print("")
+                print("------------- ERROR -------------")
+                print("Ce noeud n'est pas une instance et ne peut donc pas être supprimé.")
+                print("---------------------------------")
+                print("")
 
 
 if __name__ == "__main__":

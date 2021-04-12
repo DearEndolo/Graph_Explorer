@@ -1,3 +1,6 @@
+from GraphExplorer import Queue, Stack
+
+
 class Graph(object):
 
 	# Constructeur
@@ -14,13 +17,8 @@ class Graph(object):
 
 	# Procédure de suppression d'un noeud du graphe
 	def deleteNode(self, node):
-		for noeud in self.set:
-			if node in noeud.getExits():
-				noeud.deleteExit(node)
-			if node in noeud.getEntries():
-				self.deleteEntry(node)
-
-		self.set.remove(node)
+		node.deleteLinks()
+		self.set.pop(self.set.index(node))
 
 
 	# Fonction de récupération des noeuds du graphes
@@ -65,6 +63,13 @@ class Graph(object):
 					child.distance = node.distance + 1
 					nodeStack.stack(child)
 
+	def __same_values_in_it(tab1, tab2):
+		res = len(tab1) == len(tab2)
+		if res:
+			for var in tab1:
+				res = res and var in tab2
+		return res
+
 	def dijkstra(self, startingNode):
 		p = Graph()
 		nodes = self.getNodeSet()
@@ -72,7 +77,7 @@ class Graph(object):
 			node.distance = None
 		startingNode.distance = 0
 		# On vérfie que les deux graphes ne possèdent pas les mêmes noeuds
-		while not(same_values_in_it(p.getNodeSet(), nodes)):
+		while not(self.__same_values_in_it(p.getNodeSet(), nodes)):
 			nodeMinDistance = None
 			# On choisit le noeud avec le moins de distance du graphe
 			for node in nodes:
@@ -93,3 +98,6 @@ class Graph(object):
 			if node.getName() == name:
 				return node
 		return None
+
+	def size(self):
+		return len(self.set)

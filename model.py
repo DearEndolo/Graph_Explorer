@@ -47,29 +47,34 @@ def creerMistecache():
 
 def affiche_aide(topic):
     """Affiche l'aide en fonction du topic"""
-    print(f"---- HELP {topic.upper()} ----")
-    if (topic=="Add"):
+    print(f"==== HELP {topic.upper()} ====")
+    if (topic=="add"):
         print("The command add create an instance of one or multiple concept(s)")
         print("-- SYNTAX --")
         print("add <instanceName> isa <conceptNode>")
         print("add <instanceName> isa <conceptNode>, <conceptNode>")
         print("-- EXAMPLE --")
         print("add Hareng isa Poisson")
-        print("add Melon - Jambon cru isa Entr?e, Dessert")
-    if (topic=="ajouteAtt"):
+        print("add Melon - Jambon cru isa Entrée, Dessert")
+    if (topic=="addAttr"):
         print("The command update the attributs of a instance")
         print("-- SYNTAX --")
         print("changeAttr <instanceName> <attributKeyName> <value> ")
         print("-- EXAMPLE --")
         print("changeAttr Hareng ph 7")
-        print("changeAttr Melon cironconf?rance 18")
+        print("changeAttr Melon circonférance 18")
     if (topic=="changeAttr"):
         print("The command update the attributs of a instance")
         print("-- SYNTAX --")
         print("changeAttr <instanceName> <attributKeyName> <value> ")
         print("-- EXAMPLE --")
         print("changeAttr Hareng ph 7")
-        print("changeAttr Melon cironconferance 18")
+        print("changeAttr Melon circonférance 18")
+    if (topic=="all"):
+        affiche_aide("add")
+        affiche_aide("addAttr")
+        affiche_aide("changeAttr")
+
 
 
 def skip_spaces(mot):
@@ -96,10 +101,12 @@ def recherche(graph, liste_nom):
     return res
 
 def ajoute(graph, name, listConcepts):
-    newNode = mistecache.addNode(InstanceNode(name))
+    print(type(graph))
+    newNode = InstanceNode(name)
+    graph.addNode(newNode)
     for concept in listConcepts:
         conceptNode = graph.search(concept)
-        newNode.addExit(conceptNode, relation.INSTANCE)
+        newNode.addExit(conceptNode, relation.Relation.INSTANCE)
 
 def ajouteAtt(graph, name, attributKeyName, value):
     noeud = graph.search(name)
