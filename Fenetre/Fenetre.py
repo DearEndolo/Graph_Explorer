@@ -1,4 +1,6 @@
 from guizero import *
+
+from GraphExplorer import Graph
 from .Vectors import *
 from .Couleurs import *
 
@@ -71,3 +73,10 @@ class Fenetre(App):
         """ Est appelée quand on ferme la fentre."""
         print("Quitter")
         self.destroy()
+
+# ========================
+# Getter & setters
+
+    def setModel(self, graph: Graph):
+        self.model = graph
+        self.updateCanvas()
