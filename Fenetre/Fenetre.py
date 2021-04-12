@@ -1,6 +1,6 @@
 from guizero import *
 
-from GraphExplorer import Graph
+from GraphExplorer import Graph, Node
 from .Vectors import *
 from .Couleurs import *
 
@@ -11,10 +11,10 @@ class Fenetre(App):
     CANVAS_HEIGHT = 450
     CANVAS_WIDTH = 450
 
-    def __init__(self):
+    def __init__(self, model: Graph):
         super().__init__()
         self._initWidgets()
-        self.model = None # On va pointer vers l'obj de graph ici
+        self.model = model # On va pointer vers l'obj de graph ici
         self.noeudsPos = {}    # { un noeud : Vector2D } pour dessiner les noeuds sur le canvas
 
         # On affiche l'application
@@ -33,7 +33,7 @@ class Fenetre(App):
                                toplevel=["Options"],  # les onglets ["File", "Edit", "..."]
                                options=[
                                    # onglet Option :
-                                   [["Quitter", self.quitter]]
+                                   [["Quitter", self.quitter], ["Update", self.updateCanvas]]
                                ])
 
         # Les Layouts
@@ -54,19 +54,27 @@ class Fenetre(App):
         """Met a jour le visuel du canvas"""
         self.canvas.clear()
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color=Couleurs.BLANC)
+        posi = Vector2D(50, 10)
+
+        if self.model != None:
+            for nd in self.model.getNodeSet():
+                self.dessinePoint(nd, posi, coul=Couleurs.ROUGE, taille=25)
+                posi += Vector2D(0, 10)
+
+        # self.canvas.show()
         # Test
         # self.dessinePoint(None, Vector2D(50, 50), coul=Couleurs.ROUGE)
         # self.dessineLigne(Vector2D.ZERO(), Vector2D(80, 80), coul= Couleurs.BLEU)
 
 
-    def dessinePoint(self, noeud, pos: Vector2D, taille: int= 50, coul: Couleurs = Couleurs.DEFAUT):
+    def dessinePoint(self, noeud: Node, pos: Vector2D, taille: int= 50, coul: Couleurs = Couleurs.DEFAUT):
         taille = taille / 2
-        self.canvas.oval(pos.getX() -taille, pos.getX() -taille, pos.getX() +taille, pos.getX() +taille, color=coul)
-        self.canvas.text(pos.getX() -taille, pos.getY() -taille + 10, text="Un text popop", size=int(taille/2))
+        self.canvas.oval(pos.getX() -taille, pos.getY() -taille, pos.getX() +taille, pos.getY() +taille, color=coul)
+        self.canvas.text(pos.getX() -taille, pos.getY() -taille + 10, text=noeud.name, size=int(taille/2))
 
 
     def dessineLigne(self, de: Vector2D, vers: Vector2D, txt=None, taille: int= 2, coul: Couleurs = Couleurs.DEFAUT):
-        self.canvas.line( de.getX(), de.getY(), vers.getY(), vers.getY(), width=taille, color=coul )
+        self.canvas.line( de.getX(), de.getY(), vers.getX(), vers.getY(), width=taille, color=coul )
 
 
     def quitter(self):
