@@ -2,6 +2,7 @@ import mistecache
 from GraphExplorer import *
 from sys import *
 import re as regex
+import json
 
 from GraphExplorer.conceptNode import ConceptNode
 from GraphExplorer.instanceNode import InstanceNode
@@ -120,3 +121,10 @@ def changeAttribut(graph, name, attributKeyName, value):
     if noeud.getAttr(attributKeyName)==None:
         print(f"The attribut {attributKeyName} does not exist")
     noeud.updateAttr(attributKeyName, value)
+
+def sauvegarde():
+    data = {}
+    graph.search("Nourritures")
+
+    with open("data.json", "w") as outfile:
+        json.dump(data, outfile)
