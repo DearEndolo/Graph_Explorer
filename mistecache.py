@@ -14,7 +14,7 @@ def main():
         help = regex.match(r"^help (.*)$", msg)
         if(help):
             affiche_aide(help.group(1))
-        ajouteregex = regex.match(r"^add (.*) isa (.*)$",msg)
+        ajouteregex = regex.match(r"^add (.*) isa (.*)$", msg)
         if(ajouteregex):
             name = ajouteregex.group(1)
             concepts = ajouteregex.group(2).split(",")
@@ -46,8 +46,14 @@ def main():
         if(supprimeNoeud):
             nomInstance = supprimeNoeud.group(1)
             noeud = mistecache.search(nomInstance)
-            mistecache.deleteNode(noeud)
-
+            if(type(noeud) == InstanceNode):
+                mistecache.deleteNode(noeud)
+            else:
+                print("")
+                print("------------- ERROR -------------")
+                print("Ce noeud n'est pas une instance et ne peut donc pas être supprimé.")
+                print("---------------------------------")
+                print("")
 
 
 if __name__ == "__main__":
