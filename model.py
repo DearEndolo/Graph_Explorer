@@ -47,7 +47,7 @@ def creerMistecache():
 
 def affiche_aide(topic):
     """Affiche l'aide en fonction du topic"""
-    print(f"---- HELP {topic.upper()} ----")
+    print(f"==== HELP {topic.upper()} ====")
     if (topic=="add"):
         print("The command add create an instance of one or multiple concept(s)")
         print("-- SYNTAX --")
@@ -55,7 +55,7 @@ def affiche_aide(topic):
         print("add <instanceName> isa <conceptNode>, <conceptNode>")
         print("-- EXAMPLE --")
         print("add Hareng isa Poisson")
-        print("add Melon - Jambon cru isa Entr?e, Dessert")
+        print("add Melon - Jambon cru isa Entrée, Dessert")
     if (topic=="ajouteAtt"):
         print("The command update the attributs of a instance")
         print("-- SYNTAX --")
@@ -70,6 +70,30 @@ def affiche_aide(topic):
         print("-- EXAMPLE --")
         print("changeAttr Hareng ph 7")
         print("changeAttr Melon cironconferance 18")
+    if (topic=="all"):
+        print(f"==== HELP add ====")
+        print("The command add create an instance of one or multiple concept(s)")
+        print("-- SYNTAX --")
+        print("add <instanceName> isa <conceptNode>")
+        print("add <instanceName> isa <conceptNode>, <conceptNode>")
+        print("-- EXAMPLE --")
+        print("add Hareng isa Poisson")
+        print("add Melon - Jambon cru isa Entrée, Dessert")
+        print(f"==== HELP ajouteAtt ====")
+        print("The command update the attributs of a instance")
+        print("-- SYNTAX --")
+        print("changeAttr <instanceName> <attributKeyName> <value> ")
+        print("-- EXAMPLE --")
+        print("changeAttr Hareng ph 7")
+        print("changeAttr Melon cironconférance 18")
+        print(f"==== HELP changeAttr ====")
+        print("The command update the attributs of a instance")
+        print("-- SYNTAX --")
+        print("changeAttr <instanceName> <attributKeyName> <value> ")
+        print("-- EXAMPLE --")
+        print("changeAttr Hareng ph 7")
+        print("changeAttr Melon cironconferance 18")
+
 
 
 def skip_spaces(mot):
