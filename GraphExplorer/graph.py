@@ -39,7 +39,14 @@ class Graph(object):
 
 		while not(queue.isEmpty()):
 			node = queue.unstack()
-			nextNodes = node.getNodes()
+			nextNodes = node.getExits()
+			for nextNode in nextNodes:
+				if nextNode.color == "white":
+					queue.stack(nextNode)
+					nextNode.color = "grey"
+					nextNode.tree = node
+					nextNode.distance = node.distance + 1
+			nextNodes = node.getEntries()
 			for nextNode in nextNodes:
 				if nextNode.color == "white":
 					queue.stack(nextNode)
@@ -58,7 +65,11 @@ class Graph(object):
 			node = nodeStack.unstack()
 			if(not(node.marked)):
 				node.marked = True
-			for child in node.getNodes():
+			for child in node.getEntries():
+				if(not(child.marked)):
+					child.distance = node.distance + 1
+					nodeStack.stack(child)
+			for child in node.getExits():
 				if(not(child.marked)):
 					child.distance = node.distance + 1
 					nodeStack.stack(child)
@@ -88,7 +99,11 @@ class Graph(object):
 					nodeMinDistance = node
 			p.addNode(nodeMinDistance)
 			# Pour chaque voisin du noeud on vérifie que sa distance ne s'est pas réduite ou on l'initialise
-			for neighbour in nodeMinDistance.getNodes():
+			for neighbour in nodeMinDistance.getEntries():
+				if not(neighbour in p.getNodeSet()):
+					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
+						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
+			for neighbour in nodeMinDistance.getExits():
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
 						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
