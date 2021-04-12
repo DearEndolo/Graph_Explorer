@@ -54,15 +54,6 @@ class Fenetre(App):
         """Met a jour le visuel du canvas"""
         self.canvas.clear()
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color=Couleurs.BLANC)
-        posi = Vector2D(50, 10)
-
-        if self.model != None:
-            graph = self.model.dijkstra( self.model.getNodeSet()[0] )
-
-        # self.canvas.show()
-        # Test
-        # self.dessinePoint(None, Vector2D(50, 50), coul=Couleurs.ROUGE)
-        # self.dessineLigne(Vector2D.ZERO(), Vector2D(80, 80), coul= Couleurs.BLEU)
 
 
     def dessinePoint(self, noeud: Node, pos: Vector2D, taille: int= 50, coul: Couleurs = Couleurs.DEFAUT):
