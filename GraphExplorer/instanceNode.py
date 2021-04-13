@@ -8,9 +8,14 @@ class InstanceNode(Node):
 		self.attributs = attributs.copy()
 
 	def show(self):
-		print("{"+self.name+":")
+		print("{")
+		print("\t"+self.name+":")
+		for daron in self.getExits():
+			print("\tinherit from "+str(daron))
+		if(len(self.attributs) == 0):
+			print("\t\thas no attributes.")
 		for attr in self.attributs:
-			print("\t"+attr+": "+self.attributs[attr])
+			print("\t\t"+attr+": "+self.attributs[attr])
 		print("}")
 
 	def getAttr(self, key):
