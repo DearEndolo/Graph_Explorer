@@ -96,17 +96,44 @@ class Fenetre(App):
 
     def updateCanvas(self):
         """Met a jour le visuel du canvas"""
+        print("update")
+        self.noeudsPos = {}
         self.canvas.clear()
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color=Couleurs.BLANC)
 
-        nd = self.model.getNodeSet()[0]
-        tab = self.model.dijkstra( nd )
+        ndDep = self.model.getNodeSet()[0]
+        tab = self.model.path_in_width( ndDep )
+
+        nbRang = len(tab)
+        for ligne in range(0, nbRang): # rang
+            nbNoeud = len(tab[ligne])
+            for col in range(0, nbNoeud): # colone
+                nd = tab[ligne][col]
+                pos = Vector2D( (self.CANVAS_WIDTH / nbNoeud) * col*.85 +40 ,
+                               (self.CANVAS_HEIGHT / nbRang) * ligne*.85 +40 )
+                self.noeudsPos[nd] = pos
+
+        traite = []
+        for n in self.noeudsPos.keys():
+            if not n in traite:
+                traite += [n]
+                de= self.noeudsPos[n]
+                for enf in n.getExits():
+                    if enf in self.noeudsPos.keys():
+                        self.dessineLigne(de, self.noeudsPos[enf], coul=Couleurs.NOIR)
+
+        for n in self.noeudsPos.keys():
+            self.dessinePoint( n, self.noeudsPos[n], coul=Couleurs.ROUGE )
+
+
+
 
 
     def dessinePoint(self, noeud: Node, pos: Vector2D, taille: int= 50, coul: Couleurs = Couleurs.DEFAUT):
         taille = taille / 2
         self.canvas.oval(pos.getX() -taille, pos.getY() -taille, pos.getX() +taille, pos.getY() +taille, color=coul)
-        self.canvas.text(pos.getX() -taille, pos.getY() -taille + 10, text=noeud.name, size=int(taille/2))
+        if noeud != None and noeud.name != None:
+            self.canvas.text(pos.getX() -taille, pos.getY() -taille + 10, text=noeud.name, size=int(taille/2))
 
 
     def dessineLigne(self, de: Vector2D, vers: Vector2D, txt=None, taille: int= 2, coul: Couleurs = Couleurs.DEFAUT):
@@ -117,6 +144,9 @@ class Fenetre(App):
         """ Est appelée quand on ferme la fentre."""
         # print("Quitter")
         self.destroy()
+
+# ========================
+# Command btn et event
 
 # ========================
 # Getter & setters
