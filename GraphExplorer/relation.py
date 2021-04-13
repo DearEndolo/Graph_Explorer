@@ -5,11 +5,11 @@ class Relation(object):
 		super(Relation, self).__init__()
 		self.relations = dict()
 		self.idINC = 1
-		add("ako")
-		add("isa")
-		add("instance")
-		add("part_of")
-		add("as_part")
+		self.add("ako")
+		self.add("isa")
+		self.add("instance")
+		self.add("part_of")
+		self.add("as_part")
 
 	def add(self,name):
 		if(not(self.exist(name))):
