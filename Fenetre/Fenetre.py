@@ -6,10 +6,10 @@ from .Couleurs import *
 
 class Fenetre(App):
     HEIGHT = 500
-    WIDTH = 900
+    WIDTH = 1000
 
-    CANVAS_HEIGHT = 450
-    CANVAS_WIDTH = 450
+    CANVAS_HEIGHT = 600
+    CANVAS_WIDTH = 600
 
     def __init__(self, model: Graph):
         super().__init__()
@@ -37,17 +37,61 @@ class Fenetre(App):
                                ])
 
         # Les Layouts
-        layoutGauche = Box(self, align="left", height="fill", width="fill", border=True)
-        layoutDroit = Box(self, align="right", height="fill", width=int(self.WIDTH / 3), border=True)
+        layoutGauche = Box(self, align="left", border=True)
+        layoutDroit = Box(self, align="right", height="fill", width="fill", border=True)
 
         # le canvas ou on va dessiner notre graph
-        self.canvas = Drawing(layoutGauche)
+        self.canvas = Drawing(layoutGauche, width=self.CANVAS_WIDTH, height=self.CANVAS_HEIGHT)
         self.canvas.height = self.CANVAS_HEIGHT
         self.canvas.width = self.CANVAS_WIDTH
 
         # Les labels
         self.labelNbInstances = Text(layoutDroit, "il y a XX instances ()", align="top")
         self.labelNbConcept = Text(layoutDroit, "il y a XX concepts ()", align="top")
+
+        # Ajouter ---
+        layBtnAjoute = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(layBtnAjoute, "Ajouter un noeud dans le graph.", align="top")
+
+        layBtnAjouteNoeud = Box(layBtnAjoute, align="left")
+        Text(layBtnAjouteNoeud, "Nom :", size=8, align="top")
+        self.ajouteTextBox = TextBox(layBtnAjouteNoeud, width=30, align="top")
+        self.ajouteCombo = Combo(layBtnAjouteNoeud, width=30, options=[], align="top")
+        self.ajouteBtn = PushButton(layBtnAjoute, command=None, text="Ajouter", align="right")
+
+        # Supprimer
+        laySuppr = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(laySuppr, "Retirer un noeud dans le graph :", align="top")
+        self.supprCombo = Combo(laySuppr, width=30, options=[], align="left")
+        self.supprBtn = PushButton(laySuppr, command=None, text="Retirer", align="right")
+
+        # aj attr
+        layAttrBtnAjoute = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(layAttrBtnAjoute, "Ajouter une relation :", align="top")
+
+        layAttrAjoute = Box(layAttrBtnAjoute, align="left")
+        self.attrAjouteTypeCombo =Combo(layAttrAjoute, width=30, options=["ISa", "Ako"], align="top")
+        self.attrAjouteComboDe = Combo(layAttrAjoute, width=10, options=[], align="left")
+        Text(layAttrAjoute, "-->", align="left")
+        self.attrAjouteComboVers = Combo(layAttrAjoute, width=10, options=[], align="left")
+        self.attrAjouteBtn = PushButton(layAttrBtnAjoute, command=None, text="Ajouter", align="right")
+
+        # suppr attr
+        layAttrBtnSuppr = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(layAttrBtnSuppr, "Retire une relation :", align="top")
+
+        layAttrSuppr = Box(layAttrBtnSuppr, align="left")
+        self.attrSupprComboDe = Combo(layAttrSuppr, width=10, options=[], align="left")
+        Text(layAttrSuppr, "<- x ->", align="left")
+        self.attrSupprComboVers = Combo(layAttrSuppr, width=10, options=[], align="left")
+        self.attrSupprBtn = PushButton(layAttrBtnSuppr, command=None, text="Rerirer", align="right")
+
+
+        # Recherche
+        layRech = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(layRech, "Recherche :", align="top")
+        self.rechTextBox = TextBox(layRech, width=60, align="top")
+        self.rechBtn = PushButton(layRech, command=None, text="Chercher", align="top")
 
 
     def updateCanvas(self):
@@ -68,7 +112,7 @@ class Fenetre(App):
 
     def quitter(self):
         """ Est appelée quand on ferme la fentre."""
-        print("Quitter")
+        # print("Quitter")
         self.destroy()
 
 # ========================
