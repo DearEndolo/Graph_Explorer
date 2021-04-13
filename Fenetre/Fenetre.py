@@ -18,7 +18,7 @@ class Fenetre(App):
         self.noeudsPos = {}    # { un noeud : Vector2D } pour dessiner les noeuds sur le canvas
 
         # On affiche l'application
-        self.updateCanvas()
+        self.updateVue()
         self.display()
 
 
@@ -33,7 +33,7 @@ class Fenetre(App):
                                toplevel=["Options"],  # les onglets ["File", "Edit", "..."]
                                options=[
                                    # onglet Option :
-                                   [["Quitter", self.quitter], ["Update", self.updateCanvas]]
+                                   [["Quitter", self.quitter], ["Update", self.updateVue]]
                                ])
 
         # Les Layouts
@@ -56,14 +56,14 @@ class Fenetre(App):
         layBtnAjouteNoeud = Box(layBtnAjoute, align="left")
         Text(layBtnAjouteNoeud, "Nom :", size=8, align="top")
         self.ajouteTextBox = TextBox(layBtnAjouteNoeud, width=30, align="top")
-        self.ajouteCombo = Combo(layBtnAjouteNoeud, width=30, options=[], align="top")
-        self.ajouteBtn = PushButton(layBtnAjoute, command=None, text="Ajouter", align="right")
+        self.ajouteCombo = Combo(layBtnAjouteNoeud, width=30, options=["Concept", "Instance"], align="top")
+        self.ajouteBtn = PushButton(layBtnAjoute, command=self.ajouteNoeud, text="Ajouter", align="right")
 
         # Supprimer
         laySuppr = Box(layoutDroit, align="top", width="fill", border=True)
         Text(laySuppr, "Retirer un noeud dans le graph :", align="top")
         self.supprCombo = Combo(laySuppr, width=30, options=[], align="left")
-        self.supprBtn = PushButton(laySuppr, command=None, text="Retirer", align="right")
+        self.supprBtn = PushButton(laySuppr, command=self.supprimeNoeud, text="Retirer", align="right")
 
         # aj attr
         layAttrBtnAjoute = Box(layoutDroit, align="top", width="fill", border=True)
@@ -74,7 +74,7 @@ class Fenetre(App):
         self.attrAjouteComboDe = Combo(layAttrAjoute, width=10, options=[], align="left")
         Text(layAttrAjoute, "-->", align="left")
         self.attrAjouteComboVers = Combo(layAttrAjoute, width=10, options=[], align="left")
-        self.attrAjouteBtn = PushButton(layAttrBtnAjoute, command=None, text="Ajouter", align="right")
+        self.attrAjouteBtn = PushButton(layAttrBtnAjoute, command=self.ajouteRelation, text="Ajouter", align="right")
 
         # suppr attr
         layAttrBtnSuppr = Box(layoutDroit, align="top", width="fill", border=True)
@@ -84,29 +84,79 @@ class Fenetre(App):
         self.attrSupprComboDe = Combo(layAttrSuppr, width=10, options=[], align="left")
         Text(layAttrSuppr, "<- x ->", align="left")
         self.attrSupprComboVers = Combo(layAttrSuppr, width=10, options=[], align="left")
-        self.attrSupprBtn = PushButton(layAttrBtnSuppr, command=None, text="Rerirer", align="right")
+        self.attrSupprBtn = PushButton(layAttrBtnSuppr, command=self.supprimeRelation, text="Rerirer", align="right")
 
 
         # Recherche
         layRech = Box(layoutDroit, align="top", width="fill", border=True)
         Text(layRech, "Recherche :", align="top")
         self.rechTextBox = TextBox(layRech, width=60, align="top")
-        self.rechBtn = PushButton(layRech, command=None, text="Chercher", align="top")
+        self.rechBtn = PushButton(layRech, command=self.recherche, text="Chercher", align="top")
+
+
+    def updateVue(self):
+        print("update")
+        self.updateCanvas()
+        self.updatesValues()
+
+    def updatesValues(self):
+        self.supprCombo.clear()
+        self.attrAjouteComboDe.clear()
+        self.attrAjouteComboVers.clear()
+        self.attrSupprComboDe.clear()
+        self.attrSupprComboVers.clear()
+
+
+        nd = self.model.getNodeSet()
+
+        for n in nd:
+            if n.name:
+                self.attrAjouteComboDe.append(n.name)
+                self.attrAjouteComboVers.append(n.name)
+                self.supprCombo.append(n.name)
+                self.attrSupprComboDe.append(n.name)
+                self.attrSupprComboVers.append(n.name)
 
 
     def updateCanvas(self):
         """Met a jour le visuel du canvas"""
+        self.noeudsPos = {}
         self.canvas.clear()
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color=Couleurs.BLANC)
 
-        nd = self.model.getNodeSet()[0]
-        tab = self.model.dijkstra( nd )
+        ndDep = self.model.getNodeSet()[0]
+        tab = self.model.path_in_width( ndDep )
+
+        nbRang = len(tab)
+        for ligne in range(0, nbRang): # rang
+            nbNoeud = len(tab[ligne])
+            for col in range(0, nbNoeud): # colone
+                nd = tab[ligne][col]
+                pos = Vector2D( (self.CANVAS_WIDTH / nbNoeud) * col*.85 +40 ,
+                               (self.CANVAS_HEIGHT / nbRang) * ligne*.85 +40 )
+                self.noeudsPos[nd] = pos
+
+        traite = []
+        for n in self.noeudsPos.keys():
+            if not n in traite:
+                traite += [n]
+                de= self.noeudsPos[n]
+                for enf in n.getExits():
+                    if enf in self.noeudsPos.keys():
+                        self.dessineLigne(de, self.noeudsPos[enf], coul=Couleurs.NOIR)
+
+        for n in self.noeudsPos.keys():
+            self.dessinePoint( n, self.noeudsPos[n], coul=Couleurs.ROUGE )
+
+
+
 
 
     def dessinePoint(self, noeud: Node, pos: Vector2D, taille: int= 50, coul: Couleurs = Couleurs.DEFAUT):
         taille = taille / 2
         self.canvas.oval(pos.getX() -taille, pos.getY() -taille, pos.getX() +taille, pos.getY() +taille, color=coul)
-        self.canvas.text(pos.getX() -taille, pos.getY() -taille + 10, text=noeud.name, size=int(taille/2))
+        if noeud != None and noeud.name != None:
+            self.canvas.text(pos.getX() -taille, pos.getY() -taille + 10, text=noeud.name, size=int(taille/2))
 
 
     def dessineLigne(self, de: Vector2D, vers: Vector2D, txt=None, taille: int= 2, coul: Couleurs = Couleurs.DEFAUT):
@@ -117,6 +167,38 @@ class Fenetre(App):
         """ Est appelée quand on ferme la fentre."""
         # print("Quitter")
         self.destroy()
+
+# ========================
+# Command btn et event
+
+    def ajouteNoeud(self):
+        # print("ajouteNoeud")
+        if self.ajouteTextBox.value == "":
+            info("err", "il manque une valeur.")
+            return
+
+        pass
+
+
+    def supprimeNoeud(self):
+        print("supprimeNoeud")
+        pass
+
+
+    def ajouteRelation(self):
+        print("ajouteRelation")
+        pass
+
+
+    def supprimeRelation(self):
+        print("supprimeRelation")
+        pass
+
+
+    def recherche(self):
+        print("Recherche")
+        pass
+
 
 # ========================
 # Getter & setters
