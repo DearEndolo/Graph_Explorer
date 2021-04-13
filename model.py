@@ -103,7 +103,7 @@ def recherche(graph, liste_nom):
 
         node = graph.search(nom)
         if(node == None):
-            print(f"Le noeud {name} n'existe pas")
+            print(f"Le noeud {node.name} n'existe pas")
         else:
             node.show()
             tab = node.getEntries()
@@ -156,20 +156,30 @@ def sauvegarde(graph):
     data["node"] = {}
     listNoeuds = graph.getNodeSet()
     for noeud in listNoeuds:
-        # print(noeud)
-        # print( f"name : {noeud.name}"
-        #        f" isOriented : {noeud.isOriented} "
-        #        f"previousNodes : {noeud.previousNodes} "
-        #        f"nextNodes : {noeud.nextNodes}")
+
+        print(f"Nodes : {noeud} ")
+        for noeudPrec in noeud.previousNodes:
+            print(f"Noeud prec : {noeudPrec} : Noeud prec value {noeud.previousNodes[noeudPrec]}")
+        for noeudSuiv in noeud.nextNodes:
+            print(f"Noeud suiv : {noeudSuiv} : Noeud suiv value {noeud.nextNodes[noeudSuiv]}")
+
         temp = {
             "name": noeud.name,
             "isOriented": noeud.isOriented,
             "InstanceNode": type(noeud) == InstanceNode,
-            "ConceptNode": type(noeud) == ConceptNode
+            "ConceptNode": type(noeud) == ConceptNode,
+
         }
+        for noeudPrec in noeud.previousNodes:
+            # temp["previousNodes"][noeudPrec.name]=noeud.previousNodes[noeudPrec]
+            print(f"zzz : {type(noeud.previousNodes[noeudPrec])}")
+
+        for noeudSuiv in noeud.previousNodes:
+            # temp["previousNodes"][noeudSuiv.name]=noeud.nextNodes[noeudSuiv]
+            pass
 
         data["node"][noeud.name]=temp
-        print(data["node"])
+        # print(data["node"])
         # self.isOriented = isOriented
         # # Représentation des noeud précedents en dictionnaire python (clé : noeud, valeur : poids de l'arc)
         # self.previousNodes = dict()
@@ -178,6 +188,13 @@ def sauvegarde(graph):
 
     with open("data.json", "w") as outfile:
         json.dump(data, outfile, indent=4, ensure_ascii=False)
+
+def chargerSauvegarde():
+    with open('data.json') as json_file:
+        data = json.load(json_file)
+        for node in data:
+            for typeNode in data[node]:
+                print(typeNode.name)
 
 
 
