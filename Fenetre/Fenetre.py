@@ -57,7 +57,7 @@ class Fenetre(App):
         layBtnAjouteNoeud = Box(layBtnAjoute, align="left")
         Text(layBtnAjouteNoeud, "Nom :", size=8, align="top")
         self.ajouteTextBox = TextBox(layBtnAjouteNoeud, width=30, align="top")
-        self.ajouteCombo = Combo(layBtnAjouteNoeud, width=30, options=["Concept", "Instance"], align="top")
+        self.ajouteCombo = Combo(layBtnAjouteNoeud, width=30, options=[], align="top")
         self.ajouteBtn = PushButton(layBtnAjoute, command=self.ajouteNoeud, text="Ajouter", align="right")
 
         # Supprimer
@@ -101,6 +101,7 @@ class Fenetre(App):
         self.updatesValues()
 
     def updatesValues(self):
+        self.ajouteCombo.clear()
         self.supprCombo.clear()
         self.attrAjouteComboDe.clear()
         self.attrAjouteComboVers.clear()
@@ -110,13 +111,25 @@ class Fenetre(App):
 
         nd = self.model.getNodeSet()
 
+        nbInstances = 0
+        nbConcept = 0
+
         for n in nd:
-            if n.name:
+            if type(n) == InstanceNode:
+                nbInstances += 1
                 self.attrAjouteComboDe.append(n.name)
-                self.attrAjouteComboVers.append(n.name)
-                self.supprCombo.append(n.name)
                 self.attrSupprComboDe.append(n.name)
+                self.supprCombo.append(n.name)
+
+            if type(n) == ConceptNode:
+                nbConcept += 1
+                self.ajouteCombo.append(n.name)
+                self.attrAjouteComboVers.append(n.name)
                 self.attrSupprComboVers.append(n.name)
+
+        self.labelNbInstances.value = f"il y a {nbInstances} instances"
+        self.labelNbConcept.value = f"il y a {nbConcept} Concepts "
+
 
 
     def updateCanvas(self):
@@ -126,6 +139,7 @@ class Fenetre(App):
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color=Couleurs.BLANC)
 
         ndDep = self.model.getNodeSet()[0]
+        print(ndDep)
         tab = self.model.path_in_width( ndDep )
 
         nbRang = len(tab)
@@ -147,7 +161,10 @@ class Fenetre(App):
                         self.dessineLigne(de, self.noeudsPos[enf], coul=Couleurs.NOIR)
 
         for n in self.noeudsPos.keys():
-            self.dessinePoint( n, self.noeudsPos[n], coul=Couleurs.ROUGE )
+            if type(n) == ConceptNode:
+                self.dessinePoint( n, self.noeudsPos[n], coul=Couleurs.ROUGE )
+            else:
+                self.dessinePoint(n, self.noeudsPos[n], coul=Couleurs.BLEU)
 
 
 
@@ -178,12 +195,14 @@ class Fenetre(App):
             info("err", "il manque une valeur.")
             return
 
-        if self.ajouteCombo == "Concept":
-            nd = ConceptNode(self.ajouteTextBox.value)
+        concpt = self.model.search(self.ajouteCombo.value)
+        if concpt == None:
+            info("err", "Ce concept n'existe pas.")
+            return
 
-        else:
-            nd = InstanceNode(self.ajouteTextBox.value)
+        nd = InstanceNode(self.ajouteTextBox.value)
 
+        nd.addExit(concpt, self.model.getRelation("isa"))
         self.model.addNode(nd)
 
         self.ajouteTextBox.clear()
