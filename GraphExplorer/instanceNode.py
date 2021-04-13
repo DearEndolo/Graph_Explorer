@@ -14,7 +14,7 @@ class InstanceNode(Node):
 			if(self.getWeight(neighbour) == graph.getRelation("isa")):
 				print("\tinherit from "+str(neighbour))
 			else:
-				print(f"\t{graph.getRelationObj().getNameByValue(self.getWeight(neighbour))} {str(neighbour)}")
+				print(f"\t{graph.getNameRelation(self,neighbour)} {str(neighbour)}")
 		if(len(self.attributs) == 0):
 			print("\t\thas no attributes.")
 		for attr in self.attributs:
