@@ -173,3 +173,6 @@ class Graph(object):
 			if type(n) == GraphExplorer.ConceptNode:
 				res += [n]
 		return res
+
+	def getNameRelation(self, node1, node2):
+		return self.relation.getNameByValue(node1.getWeight(node2))
