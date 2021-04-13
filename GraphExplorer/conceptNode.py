@@ -21,6 +21,9 @@ class ConceptNode(Node):
 	def getAttr(self, key):
 		return self.attributs[key]
 
+	def getAllAttr(self):
+		return self.attributs
+
 	def addAttr(self, key, value):
 		self.attributs[key] = value
 		return self.attributs[key] == value

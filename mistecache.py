@@ -9,7 +9,8 @@ def main():
     # fenetre = Fenetre(mistecache)
     print("Bienvenue sur Mistecache ! Comment allez vous ? :D")
     affiche_commandes()
-    sauvegarde(mistecache)
+    sauvegarde(mistecache, "zzz.json")
+    chargerSauvegarde()
     # print(mistecache.path_in_width(mistecache.search("Nourritures")))
 
     while not(fini):
