@@ -1,20 +1,28 @@
 class Relation(object):
 	"""docstring for Relation"""
 
+	AKO = 1
+	ISA = 2
+	PART_OF = 3
+	AS_PART = 4
+
+
+
 	def __init__(self):
 		super(Relation, self).__init__()
 		self.relations = dict()
 		self.idINC = 1
 		self.add("ako")
 		self.add("isa")
-		self.add("instance")
 		self.add("part_of")
 		self.add("as_part")
+		print(self.relations)
 
 	def add(self,name):
 		if(self.exist(name)):
 			print("This relation already exists.")
 		else:
+			print(f"The relation {name} has been added.")
 			self.relations[name] = self.idINC
 			self.idINC = self.idINC + 1
 

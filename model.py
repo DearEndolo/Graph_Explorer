@@ -105,14 +105,13 @@ def recherche(graph, liste_nom):
         if(node == None):
             print(f"Le noeud {node.name} n'existe pas")
         else:
-            node.show()
+            node.show(graph)
             tab = node.getEntries()
             res.append(node)
-            print(node)
             res += tab
 
             for elem in tab:
-                print(elem)
+                elem.show(graph)
     return res
 
 
@@ -125,7 +124,9 @@ def ajoute(graph, name, listConcepts):
         if(conceptNode == None):
             print(f"Le noeud {conceptNode} n'existe pas")
         else:
-            newNode.addExit(conceptNode, graph.getRelation("instance"))
+            print(graph.getRelation("isa"))
+            newNode.addExit(conceptNode, graph.getRelation("isa"))
+            print(newNode.getWeight(conceptNode))
 
 
 
@@ -204,7 +205,7 @@ def displayNode(graph, name):
         print(f"Le noeud {name} n'existe pas")
         return
     else:
-        node.show()
+        node.show(graph)
 
 
 def deleteNode(graph, name):
@@ -236,9 +237,10 @@ def link(graph, name1, rel, name2):
     if(type(node2) != InstanceNode):
         print(f"Le noeud {name2} n'est pas une instance'")
         return
-        
-    node1.addExit(node2,graph.fetchRelation(rel))
-
+    if(graph.getRelation(rel) == None or graph.getRelation(rel) != graph.getRelation("isa")):
+        node1.addExit(node2,graph.fetchRelation(rel))
+    else:
+        print("Ce lien ne peut être utilisé qu'entre une instance et un concept.")
 
 def affiche_commandes():
     print("Pour avoir de l'aide tapez :")

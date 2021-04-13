@@ -155,3 +155,6 @@ class Graph(object):
 		if(not(self.relation.exist(name))):
 			self.relation.add(name)
 		return self.relation.get(name)
+
+	def getRelationObj(self):
+		return self.relation
