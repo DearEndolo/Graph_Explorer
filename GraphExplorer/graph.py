@@ -1,4 +1,4 @@
-from GraphExplorer import Queue, Stack
+from GraphExplorer import Queue, Stack,Relation
 
 
 class Graph(object):
