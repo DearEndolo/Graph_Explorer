@@ -1,6 +1,6 @@
 from guizero import *
 
-from GraphExplorer import Graph, Node
+from GraphExplorer import Graph, Node, InstanceNode, ConceptNode
 from .Vectors import *
 from .Couleurs import *
 
@@ -178,26 +178,39 @@ class Fenetre(App):
             info("err", "il manque une valeur.")
             return
 
-        pass
+        if self.ajouteCombo == "Concept":
+            nd = ConceptNode(self.ajouteTextBox.value)
+
+        else:
+            nd = InstanceNode(self.ajouteTextBox.value)
+
+        self.model.addNode(nd)
+
+        self.ajouteTextBox.clear()
+        self.updateVue()
 
 
     def supprimeNoeud(self):
         print("supprimeNoeud")
+        self.updateVue()
         pass
 
 
     def ajouteRelation(self):
         print("ajouteRelation")
+        self.updateVue()
         pass
 
 
     def supprimeRelation(self):
         print("supprimeRelation")
+        self.updateVue()
         pass
 
 
     def recherche(self):
         print("Recherche")
+        self.updateVue()
         pass
 
 
