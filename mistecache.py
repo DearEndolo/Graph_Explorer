@@ -85,6 +85,8 @@ def main():
             nameNode1 = linkNodes.group(1)
             nameRel = linkNodes.group(2)
             nameNode2 = linkNodes.group(3)
+            link(mistecache,nameNode1,nameRel,nameNode2)
+
 
         if(msg == "finish"):
             print("Au revoir ! :D")

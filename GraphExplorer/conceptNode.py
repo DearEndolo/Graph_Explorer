@@ -6,6 +6,17 @@ class ConceptNode(Node):
 		super(ConceptNode, self).__init__(name, True)
 		self.attributs = attributs.copy()
 
+	def show(self):
+		print("{")
+		print("\t"+self.name+":")
+		for daron in self.getExits():
+			print("\tinherit from "+str(daron))
+		if(len(self.attributs) == 0):
+			print("\t\thas no attributes.")
+		for attr in self.attributs:
+			print("\t\t"+attr+": "+self.attributs[attr])
+		print("}")
+
 
 	def getAttr(self, key):
 		return self.attributs[key]

@@ -141,7 +141,7 @@ class Graph(object):
 		self.relation.add(name)
 
 	def getRelation(self,name):
-		return self.relation.add(name)
+		return self.relation.get(name)
 
 	def existRelation(self, name):
 		return self.relation.exist(name)

@@ -12,7 +12,7 @@ class Relation(object):
 		self.add("as_part")
 
 	def add(self,name):
-		if(not(self.exist(name))):
+		if(self.exist(name)):
 			print("This relation already exists.")
 		else:
 			self.relations[name] = self.idINC
