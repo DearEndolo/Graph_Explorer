@@ -145,3 +145,6 @@ class Graph(object):
 
 	def existRelation(self, name):
 		return self.relation.exist(name)
+
+	def setRelation(self, rel):
+		self.relation = rel

@@ -26,21 +26,24 @@ def creerMistecache():
     viande = ConceptNode("Viande")
     poisson = ConceptNode("Poisson")
 
+    rel = Relation()
 
-    poisson.addExit(animal,Relation.ISA)
-    viande.addExit(animal,Relation.ISA)
-    animal.addExit(ingredient,Relation.AKO)
-    vegetal.addExit(ingredient,Relation.AKO)
-    ingredient.addExit(nourriture,Relation.AKO)
-    ingredient.addExit(recette,Relation.PARTOF)
-    entree.addExit(recette,Relation.AKO)
-    plat.addExit(recette,Relation.AKO)
-    dessert.addExit(recette,Relation.AKO)
-    recette.addExit(nourriture,Relation.AKO)
+    poisson.addExit(animal,rel.get("isa"))
+    viande.addExit(animal,rel.get("isa"))
+    animal.addExit(ingredient,rel.get("ako"))
+    vegetal.addExit(ingredient,rel.get("ako"))
+    ingredient.addExit(nourriture,rel.get("ako"))
+    ingredient.addExit(recette,rel.get("part_of"))
+    entree.addExit(recette,rel.get("ako"))
+    plat.addExit(recette,rel.get("ako"))
+    dessert.addExit(recette,rel.get("ako"))
+    recette.addExit(nourriture,rel.get("ako"))
 
 
     ensemble = [nourriture,recette,entree,plat,dessert,ingredient,vegetal,animal,viande,poisson]
     mistecache = Graph(ensemble)
+    mistecache.relation = rel
+
     return mistecache
 
 
@@ -122,7 +125,7 @@ def ajoute(graph, name, listConcepts):
         if(conceptNode == None):
             print(f"Le noeud {conceptNode} n'existe pas")
         else:
-            newNode.addExit(conceptNode, relation.Relation.INSTANCE)
+            newNode.addExit(conceptNode, graph.getRelation("instance"))
 
 
 
@@ -199,6 +202,7 @@ def deleteNode(graph, name):
         print("------------- ERROR -------------")
         print("Ce noeud n'est pas une instance et ne peut donc pas être supprimé.")
         print("---------------------------------")
+
 
 def affiche_commandes():
     print("Pour avoir de l'aide tapez :")
