@@ -1,4 +1,5 @@
-from GraphExplorer import Queue, Stack,Relation
+import GraphExplorer
+from GraphExplorer import Queue, Stack, Relation
 
 
 class Graph(object):
@@ -155,3 +156,17 @@ class Graph(object):
 		if(not(self.relation.exist(name))):
 			self.relation.add(name)
 		return self.relation.get(name)
+
+	def getInstances(self):
+		res = []
+		for n in self.getNodeSet():
+			if type(n) == GraphExplorer.InstanceNode:
+				res += [n]
+		return res
+
+	def getConcepts(self):
+		res = []
+		for n in self.getNodeSet():
+			if type(n) == GraphExplorer.ConceptNode:
+				res += [n]
+		return res

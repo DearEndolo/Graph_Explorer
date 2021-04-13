@@ -27,6 +27,7 @@ class Fenetre(App):
         self.height = self.HEIGHT
         self.width = self.WIDTH
         self.when_closed = self.quitter
+        self.bg = Couleurs.GRIS
 
         # Les options de la barre de menu
         self.menuBar = MenuBar(self,
@@ -37,8 +38,8 @@ class Fenetre(App):
                                ])
 
         # Les Layouts
-        layoutGauche = Box(self, align="left", border=True)
-        layoutDroit = Box(self, align="right", height="fill", width="fill", border=True)
+        layoutGauche = Box(self, align="left", border=False)
+        layoutDroit = Box(self, align="right", height="fill", width="fill", border=False)
 
         # le canvas ou on va dessiner notre graph
         self.canvas = Drawing(layoutGauche, width=self.CANVAS_WIDTH, height=self.CANVAS_HEIGHT)
