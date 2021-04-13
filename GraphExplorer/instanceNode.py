@@ -1,4 +1,4 @@
-from GraphExplorer import Node, ConceptNode
+from GraphExplorer import Node, ConceptNode, Relation
 
 class InstanceNode(Node):
 	"""docstring for InstanceNode"""
@@ -6,7 +6,21 @@ class InstanceNode(Node):
 	def __init__(self, name, attributs = dict()):
 		super(InstanceNode, self).__init__(name, True)
 		self.attributs = attributs.copy()
-		
+
+	def show(self, graph):
+		print("{")
+		print("\t"+self.name+":")
+		for neighbour in self.getExits():
+			if(self.getWeight(neighbour) == graph.getRelation("isa")):
+				print("\tinherit from "+str(neighbour))
+			else:
+				print(f"\t{graph.getRelationObj().getNameByValue(self.getWeight(neighbour))} {str(neighbour)}")
+		if(len(self.attributs) == 0):
+			print("\t\thas no attributes.")
+		for attr in self.attributs:
+			print("\t\t"+attr+": "+self.attributs[attr])
+		print("}")
+
 	def getAttr(self, key):
 		if(not(key in self.attributs.keys())):
 			return None
@@ -20,7 +34,6 @@ class InstanceNode(Node):
 		self.attributs[key] = value
 
 	def addExit(self, node, weight = 1):
-		if(not(type(node) == ConceptNode)):
-			print("IntanceNodes have to inherit from ConceptNode")
-		else:
-			super().addExit(node)
+		super().addExit(node,weight)
+		if(type(node) == InstanceNode and not(self in node.getExits())):
+			node.addExit(self, weight)

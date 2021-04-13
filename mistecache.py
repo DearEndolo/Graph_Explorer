@@ -69,9 +69,9 @@ def main():
 
 
         #nomConcept
-        searchNode = regex.match(r"^search (.*)$")
+        searchNode = regex.match(r"^search (.*)$", msg)
         if(searchNode):
-            concepts = ajouteregex.group(2).split(",")
+            concepts = searchNode.group(1).split(",")
             list_concepts = list()
             for concept in concepts:
                 concept = skip_spaces(concept)
@@ -80,7 +80,7 @@ def main():
 
 
         #nomInstance, rel, nomInstance
-        linkNodes = regex.match(r"^link (.*) (.*) (.*)$")
+        linkNodes = regex.match(r"^link (.*) (.*) (.*)$", msg)
         if(linkNodes):
             nameNode1 = linkNodes.group(1)
             nameRel = linkNodes.group(2)
