@@ -203,6 +203,8 @@ def deleteNode(graph, name):
         print("Ce noeud n'est pas une instance et ne peut donc pas être supprimé.")
         print("---------------------------------")
 
+def link(graph, name1, rel, name2):
+    pass
 
 def affiche_commandes():
     print("Pour avoir de l'aide tapez :")
