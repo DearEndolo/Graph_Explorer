@@ -157,6 +157,9 @@ class Graph(object):
 			self.relation.add(name)
 		return self.relation.get(name)
 
+	def getRelationObj(self):
+		return self.relation
+
 	def getInstances(self):
 		res = []
 		for n in self.getNodeSet():
