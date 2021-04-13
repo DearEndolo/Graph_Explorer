@@ -6,3 +6,4 @@ class Couleurs():
     BLEU = (0, 0, 255)
     NOIR = (0, 0, 0)
     BLANC = (255, 255, 255)
+    GRIS = (215, 215, 215)

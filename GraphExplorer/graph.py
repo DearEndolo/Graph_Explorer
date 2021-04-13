@@ -1,4 +1,5 @@
-from GraphExplorer import Queue, Stack,Relation
+import GraphExplorer
+from GraphExplorer import Queue, Stack, Relation
 
 
 class Graph(object):
@@ -87,7 +88,7 @@ class Graph(object):
 	def maxNiveau(self):
 		maxi = 0
 		for node in self.getNodeSet():
-			if node.distance > maxi:
+			if node.distance != None and node.distance > maxi:
 				maxi = node.distance
 		return maxi
 
@@ -119,13 +120,15 @@ class Graph(object):
 			# Pour chaque voisin du noeud on vérifie que sa distance ne s'est pas réduite ou on l'initialise
 			for neighbour in nodeMinDistance.getEntries():
 				if not(neighbour in p.getNodeSet()):
-					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
-						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour) # TODO - y faut recheck ça, ça ne marche pas dans tt les cas .
+					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + neighbour.getWeight(nodeMinDistance))):
+						neighbour.distance = nodeMinDistance.distance + neighbour.getWeight(nodeMinDistance) # TODO - y faut recheck ça, ça ne marche pas dans tt les cas .
 
 			for neighbour in nodeMinDistance.getExits():
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
 						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
+		for node in self.getNodeSet():
+			print(f"{node} : {node.distance}")
 		return self.tabNiveau()
 
 	def search(self, name):
@@ -153,3 +156,23 @@ class Graph(object):
 		if(not(self.relation.exist(name))):
 			self.relation.add(name)
 		return self.relation.get(name)
+
+	def getRelationObj(self):
+		return self.relation
+
+	def getInstances(self):
+		res = []
+		for n in self.getNodeSet():
+			if type(n) == GraphExplorer.InstanceNode:
+				res += [n]
+		return res
+
+	def getConcepts(self):
+		res = []
+		for n in self.getNodeSet():
+			if type(n) == GraphExplorer.ConceptNode:
+				res += [n]
+		return res
+
+	def getNameRelation(self, node1, node2):
+		return self.relation.getNameByValue(node1.getWeight(node2))

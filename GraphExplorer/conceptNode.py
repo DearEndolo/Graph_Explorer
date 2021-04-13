@@ -6,7 +6,7 @@ class ConceptNode(Node):
 		super(ConceptNode, self).__init__(name, True)
 		self.attributs = attributs.copy()
 
-	def show(self):
+	def show(self,graph):
 		print("{")
 		print("\t"+self.name+":")
 		for daron in self.getExits():
