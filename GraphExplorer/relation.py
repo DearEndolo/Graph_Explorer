@@ -32,6 +32,6 @@ class Relation(object):
 		return self.relations
 
 	def getNameByValue(self, value):
-		for k in self.relations.keys()
+		for k in self.relations.keys():
 			if(self.relations[k] == value):
 				return k

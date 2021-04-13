@@ -207,7 +207,6 @@ def displayNode(graph, name):
         node.show()
 
 
-
 def deleteNode(graph, name):
     noeud = graph.search(name)
     if(node==None):
@@ -219,6 +218,7 @@ def deleteNode(graph, name):
         print("------------- ERROR -------------")
         print("Ce noeud n'est pas une instance et ne peut donc pas être supprimé.")
         print("---------------------------------")
+
 
 def link(graph, name1, rel, name2):
     node1 = graph.search(name1)
@@ -238,6 +238,7 @@ def link(graph, name1, rel, name2):
         return
         
     node1.addExit(node2,graph.fetchRelation(rel))
+
 
 def affiche_commandes():
     print("Pour avoir de l'aide tapez :")
