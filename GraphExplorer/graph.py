@@ -148,3 +148,8 @@ class Graph(object):
 
 	def setRelation(self, rel):
 		self.relation = rel
+
+	def fetchRelation(self, name):
+		if(not(self.relation.exist(name))):
+			self.relation.add(name)
+		return self.relation.get(name)

@@ -204,7 +204,23 @@ def deleteNode(graph, name):
         print("---------------------------------")
 
 def link(graph, name1, rel, name2):
-    pass
+    node1 = graph.search(name1)
+    if(node1==None):
+        print(f"Le noeud {name1} n'existe pas")
+        return
+    if(type(node1) != InstanceNode):
+        print(f"Le noeud {name1} n'est pas une instance'")
+        return
+
+    node2 = graph.search(name2)
+    if(node2==None):
+        print(f"Le noeud {name2} n'existe pas")
+        return
+    if(type(node2) != InstanceNode):
+        print(f"Le noeud {name2} n'est pas une instance'")
+        return
+        
+    node1.addExit(node2,graph.fetchRelation(rel))
 
 def affiche_commandes():
     print("Pour avoir de l'aide tapez :")

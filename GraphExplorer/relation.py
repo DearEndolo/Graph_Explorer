@@ -27,3 +27,11 @@ class Relation(object):
 
 	def exist(self,name):
 		return name in self.relations.keys()
+
+	def getAllRelations(self):
+		return self.relations
+
+	def getNameByValue(self, value):
+		for k in self.relations.keys()
+			if(self.relations[k] == value):
+				return k
