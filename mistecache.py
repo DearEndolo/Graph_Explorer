@@ -61,12 +61,14 @@ def main():
             deleteNode(mistecache, nomInstance)
 
 
+        #nomInstance
         afficheNode = regex.match(r"^display (.*)", msg)
         if(afficheNode):
             nomInstance = afficheNode.group(1)
             displayNode(mistecache, nomInstance)
 
 
+        #nomConcept
         searchNode = regex.match(r"^search (.*)$")
         if(searchNode):
             concepts = ajouteregex.group(2).split(",")
@@ -75,6 +77,15 @@ def main():
                 concept = skip_spaces(concept)
                 list_concepts.append(concept)
             recherche(mistecache, list_concepts)
+
+
+        #nomInstance, rel, nomInstance
+        linkNodes = regex.match(r"^link (.*) (.*) (.*)$")
+        if(linkNodes):
+            nameNode1 = linkNodes.group(1)
+            nameRel = linkNodes.group(2)
+            nameNode2 = linkNodes.group(3)
+            link(mistecache,nameNode1,nameRel,nameNode2)
 
 
         if(msg == "finish"):

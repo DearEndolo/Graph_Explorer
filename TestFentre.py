@@ -10,4 +10,4 @@ from model import creerMistecache
 misteca = creerMistecache()
 nd = misteca.getNodeSet()
 misteca.dijkstra( nd[0] )
-#fenetre = Fenetre(misteca)
+# fenetre = Fenetre(misteca)

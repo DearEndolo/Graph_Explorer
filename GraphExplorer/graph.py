@@ -1,4 +1,4 @@
-from GraphExplorer import Queue, Stack
+from GraphExplorer import Queue, Stack,Relation
 
 
 class Graph(object):
@@ -7,6 +7,7 @@ class Graph(object):
 	# Entrée : liste de noeud (facultatif, par défaut : liste vide)
 	def __init__(self, set=[]):
 		self.set = set
+		self.relation = Relation()
 
 	# Procédure d'ajout de noeud au graphe
 	def addNode(self, n):
@@ -135,3 +136,15 @@ class Graph(object):
 
 	def size(self):
 		return len(self.set)
+
+	def addRelation(self,name):
+		self.relation.add(name)
+
+	def getRelation(self,name):
+		return self.relation.get(name)
+
+	def existRelation(self, name):
+		return self.relation.exist(name)
+
+	def setRelation(self, rel):
+		self.relation = rel
