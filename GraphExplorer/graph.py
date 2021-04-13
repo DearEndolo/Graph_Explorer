@@ -87,7 +87,7 @@ class Graph(object):
 	def maxNiveau(self):
 		maxi = 0
 		for node in self.getNodeSet():
-			if node.distance > maxi:
+			if node.distance != None and node.distance > maxi:
 				maxi = node.distance
 		return maxi
 

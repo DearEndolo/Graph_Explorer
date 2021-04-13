@@ -99,6 +99,9 @@ class Fenetre(App):
         self.canvas.clear()
         self.canvas.rectangle(0, 0, self.CANVAS_WIDTH, self.CANVAS_HEIGHT, color=Couleurs.BLANC)
 
+        nd = self.model.getNodeSet()[0]
+        tab = self.model.dijkstra( nd )
+
 
     def dessinePoint(self, noeud: Node, pos: Vector2D, taille: int= 50, coul: Couleurs = Couleurs.DEFAUT):
         taille = taille / 2
