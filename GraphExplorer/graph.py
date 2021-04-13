@@ -1,5 +1,4 @@
-import GraphExplorer
-from GraphExplorer import Queue, Stack, Relation
+from GraphExplorer import Queue, Stack, Relation, InstanceNode, ConceptNode
 
 
 class Graph(object):
@@ -61,22 +60,35 @@ class Graph(object):
 	def deep_traversal(self, startingNode):
 		nodeStack = Stack()
 		for node in self.getNodeSet():
-			node.marked = False
-		startingNode.distance = 0
+			node.setMarked(False)
+
+		startingNode.setDistance(0)
 		nodeStack.stack(startingNode)
+
 		while not(nodeStack.isEmpty()):
 			node = nodeStack.unstack()
-			if(not(node.marked)):
-				node.marked = True
+
+			if(not(node.getMarked())):
+				node.setMarked(True)
+
 			for child in node.getEntries():
-				if(not(child.marked)):
-					child.distance = node.distance + 1
+				if(not(child.getMarked())):
+					child.setDistance(node.getDistance() + 1)
 					nodeStack.stack(child)
+
 			for child in node.getExits():
-				if(not(child.marked)):
-					child.distance = node.distance + 1
+				if(not(child.getMarked())):
+					child.setDistance(node.getDistance() + 1)
 					nodeStack.stack(child)
-		return self.tabNiveau()
+
+		tab = self.tabNiveau()
+
+		for node in self.getNodeSet():
+			node.setMarked(False)
+			node.setDistance(None)
+			node.setColor(None)
+
+		return tab
 
 	def __same_values_in_it(self, tab1, tab2):
 		res = len(tab1) == len(tab2)
@@ -88,8 +100,8 @@ class Graph(object):
 	def maxNiveau(self):
 		maxi = 0
 		for node in self.getNodeSet():
-			if node.distance != None and node.distance > maxi:
-				maxi = node.distance
+			if node.getDistance() != None and node.getDistance() > maxi:
+				maxi = node.getDistance()
 		return maxi
 
 	def tabNiveau(self):
@@ -97,7 +109,7 @@ class Graph(object):
 		for i in range(0,self.maxNiveau()+1):
 			tab.append(list())
 		for node in self.getNodeSet():
-			tab[node.distance].append(node)
+			tab[node.getDistance()].append(node)
 		return tab
 
 	def dijkstra(self, startingNode):
@@ -130,6 +142,47 @@ class Graph(object):
 		for node in self.getNodeSet():
 			print(f"{node} : {node.distance}")
 		return self.tabNiveau()
+
+	def findNodeFromNode(self,tab,newGraph,nodeCour,nodeArrive,niveau):
+		print(nodeCour)
+		if(nodeCour.getName() == nodeArrive.getName()):
+			if(type(nodeCour) == InstanceNode):
+				newNode = InstanceNode(nodeCour.getName(),nodeCour.attributs)
+			else:
+				newNode = ConceptNode(nodeCour.getName(),nodeCour.attributs)
+			newGraph.addNode(nodeCour)
+			return True
+		if(niveau+1<len(tab)):
+			for node in tab[niveau+1]:
+				if(node in nodeCour.getExits() or node in nodeCour.getEntries()):
+					predi = self.findNodeFromNode(tab,newGraph,node,nodeArrive,niveau+1)
+					if(predi):
+						if(type(nodeCour) == InstanceNode):
+							newNode = InstanceNode(nodeCour.getName(),nodeCour.attributs)
+						else:
+							newNode = ConceptNode(nodeCour.getName(),nodeCour.attributs)
+
+
+						nodeToLink = newGraph.search(node.getName())
+
+						newGraph.addNode(newNode)
+						if(node in nodeCour.getExits()):
+							newNode.addExit(nodeToLink, nodeCour.getWeight(node))
+						if(node in nodeCour.getEntries()):
+							newNode.addEntry(nodeToLink, nodeCour.getWeight(node))
+						return True
+		return False
+
+	def fromNodeToNode(self,node1,node2):
+		tabParcours = self.deep_traversal(node1);
+		newGraph = Graph()
+		newGraph.setRelation(self.relation)
+		if(self.findNodeFromNode(tabParcours, newGraph, node1, node2, 0)):
+			return newGraph
+		else:
+			return None
+
+
 
 	def search(self, name):
 		for node in self.getNodeSet():

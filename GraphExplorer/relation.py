@@ -20,15 +20,16 @@ class Relation(object):
 
 	def add(self,name):
 		if(self.exist(name)):
-			print("This relation already exists.")
+			pass
+			#print("This relation already exists.")
 		else:
-			print(f"The relation {name} has been added.")
+			#print(f"The relation {name} has been added.")
 			self.relations[name] = self.idINC
 			self.idINC = self.idINC + 1
 
 	def get(self,name):
 		if(not(self.exist(name))):
-			print("This relation doesn't exist")
+			#print("This relation doesn't exist")
 			return None
 		else:
 			return self.relations[name]

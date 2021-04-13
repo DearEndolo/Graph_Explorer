@@ -23,15 +23,18 @@ class Node(object):
 			return True
 		elif(self is None or n is None):
 			return False
-		return (self.name == n.name and
+		return (self.name == n.getName() and
 				self.isOriented == n.isOriented and
-				self.previousNodes == n.previousNodes and
-				self.nextNodes == n.nextNodes)
+				self.previousNodes == n.getEntries() and
+				self.nextNodes == n.getExits())
 
 	# Fonction de hashage du noeud, utile pour être utilisé en tant que clé de dictionnaire
 	# Sortie : entier toujours égal à 0
 	def __hash__(self):
 		return 0
+
+	def getOrientation(self):
+		return self.isOriented
 
 	# Procédure de liage de noeuds
 	# Si graphe non orienté : lie le noeud a un autre

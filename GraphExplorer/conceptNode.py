@@ -5,6 +5,24 @@ class ConceptNode(Node):
 	def __init__(self, name, attributs = dict()):
 		super(ConceptNode, self).__init__(name, True)
 		self.attributs = attributs.copy()
+		self.color = None
+		self.marked = False
+		self.distance = None
+
+	def getDistance(self):
+		return self.distance
+	def setDistance(self,value):
+		self.distance = value
+
+	def getColor(self):
+		return self.color
+	def setColor(self,value):
+		self.color = value
+
+	def getMarked(self):
+		return self.marked
+	def setMarked(self,value):
+		self.marked = value
 
 	def show(self,graph):
 		print("{")

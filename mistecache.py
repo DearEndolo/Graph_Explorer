@@ -88,6 +88,13 @@ def main():
             link(mistecache,nameNode1,nameRel,nameNode2)
 
 
+        #nomNode1, nomNode2
+        parcoursregex = regex.match(r"from (.*) to (.*)",msg)
+        if(parcoursregex):
+            name1 = parcoursregex.group(1)
+            name2 = parcoursregex.group(2)
+            fromNodeToNode(mistecache, name1, name2)
+
         if(msg == "finish"):
             print("Au revoir ! :D")
             fini = True
