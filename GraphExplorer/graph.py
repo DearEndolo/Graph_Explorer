@@ -119,13 +119,15 @@ class Graph(object):
 			# Pour chaque voisin du noeud on vérifie que sa distance ne s'est pas réduite ou on l'initialise
 			for neighbour in nodeMinDistance.getEntries():
 				if not(neighbour in p.getNodeSet()):
-					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
-						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour) # TODO - y faut recheck ça, ça ne marche pas dans tt les cas .
+					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + neighbour.getWeight(nodeMinDistance))):
+						neighbour.distance = nodeMinDistance.distance + neighbour.getWeight(nodeMinDistance) # TODO - y faut recheck ça, ça ne marche pas dans tt les cas .
 
 			for neighbour in nodeMinDistance.getExits():
 				if not(neighbour in p.getNodeSet()):
 					if(neighbour.distance == None or neighbour.distance > (nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour))):
 						neighbour.distance = nodeMinDistance.distance + nodeMinDistance.getWeight(neighbour)
+		for node in self.getNodeSet():
+			print(f"{node} : {node.distance}")
 		return self.tabNiveau()
 
 	def search(self, name):

@@ -134,8 +134,6 @@ class Node(object):
 		if(self.isOriented):
 			if(node in self.getExits()):
 				return self.nextNodes[node]
-			if(node in self.getEntries()):
-				return self.previousNodes[node]
 		return self.previousNodes[node]
 
 	def getName(self):
