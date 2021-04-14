@@ -22,7 +22,7 @@ def main():
         #commande
         helpMsg = regex.match(r"^help (.*)$", msg)
         if(helpMsg):
-            affiche_aide(help.group(1))
+            affiche_aide(helpMsg.group(1))
 
 
         #nomInstance -> nomParents
