@@ -276,10 +276,14 @@ def fromNodeToNode(graph,name1,name2):
     newGraph = graph.fromNodeToNode(node1,node2)
     if(newGraph != None):
         tab = newGraph.deep_traversal(node1)
+        bontab = list()
+        for i in range(0,len(tab)):
+            bontab.append(list())
         for i in range(len(tab)-1,-1,-1):
             for elem in tab[i]:
-                elem.show(graph)
-        return tab
+                bontab[len(tab)-1-i].append(elem)
+        
+        return bontab
     else:
         print("Aucun chemin n'a été trouvé.")
 
