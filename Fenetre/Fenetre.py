@@ -284,7 +284,7 @@ class Fenetre(App):
 
 
         else:
-            m.sauvegarde(self.model, self.m.sauvegarde(self.model))
+            m.sauvegarde(self.model, m.sauvegarde(self.model))
 
 
         self.SauvegardeTextBox.clear()
