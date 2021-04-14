@@ -101,15 +101,15 @@ class Fenetre(App):
         layBtnSauvegarde = Box(laySauvegarde, align="left")
         Text(layBtnSauvegarde, "Nom :", size=8, align="top")
         self.SauvegardeTextBox = TextBox(layBtnSauvegarde, width=60, align="top")
-        self.SaveBtn = PushButton(laySauvegarde, command=self.sauvegarde, text="Sauvegarder", align="top")
+        self.SaveBtn = PushButton(layBtnSauvegarde, command=self.sauvegarde, text="Sauvegarder", align="top")
 
         # ChargeSave
         layCharger = Box(layoutDroit, align="top", width="fill", border=True)
         Text(layCharger, "Charger un fichier json.", align="top")
-        layBtnCharger = Box(laySauvegarde, align="left")
+        layBtnCharger = Box(layCharger, align="left")
         Text(layBtnCharger, "Nom :", size=8, align="top")
-        self.ChargerTextBox = TextBox(layBtnSauvegarde, width=60, align="top")
-        self.ChargerBtn = PushButton(laySauvegarde, command=self.sauvegarde, text="Charger", align="top")
+        self.ChargerTextBox = TextBox(layBtnCharger, width=60, align="top")
+        self.ChargerBtn = PushButton(layBtnCharger, command=self.sauvegarde, text="Charger", align="top")
 
         layAttrAjoute.disable()
         layAttrBtnAjoute.disable()
