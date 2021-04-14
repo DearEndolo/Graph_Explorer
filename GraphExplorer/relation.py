@@ -16,7 +16,6 @@ class Relation(object):
 		self.add("isa")
 		self.add("part_of")
 		self.add("as_part")
-		print(self.relations)
 
 	def add(self,name):
 		if(self.exist(name)):
