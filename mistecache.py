@@ -96,6 +96,7 @@ def main():
             name2 = parcoursregex.group(2)
             fromNodeToNode(mistecache, name1, name2)
 
+
         if(msg == "finish"):
             print("Au revoir ! :D")
             fini = True

@@ -20,6 +20,9 @@ class InstanceNode(Node):
 	def setColor(self,value):
 		self.color = value
 
+	def existAttr(self, key):
+		return key in self.attributs
+
 	def getMarked(self):
 		return self.marked
 	def setMarked(self,value):
