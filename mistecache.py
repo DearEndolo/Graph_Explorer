@@ -1,5 +1,5 @@
 from model import *
-from Fenetre import *
+#from Fenetre import *
 
 def main():
     """Procédure principale"""
