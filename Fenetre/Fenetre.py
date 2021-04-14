@@ -3,6 +3,7 @@ from guizero import *
 from GraphExplorer import Graph, Node, InstanceNode, ConceptNode
 from .Vectors import *
 from .Couleurs import *
+import model as m
 
 class Fenetre(App):
     HEIGHT = 500
@@ -94,6 +95,21 @@ class Fenetre(App):
         self.rechTextBox = TextBox(layRech, width=60, align="top")
         self.rechBtn = PushButton(layRech, command=self.recherche, text="Chercher", align="top")
 
+        #Sauvegarde
+        laySauvegarde = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(laySauvegarde, "Sauvegarder le graph.", align="top")
+        layBtnSauvegarde = Box(laySauvegarde, align="left")
+        Text(layBtnSauvegarde, "Nom :", size=8, align="top")
+        self.SauvegardeTextBox = TextBox(layBtnSauvegarde, width=60, align="top")
+        self.SaveBtn = PushButton(laySauvegarde, command=self.sauvegarde, text="Sauvegarder", align="top")
+
+        # ChargeSave
+        layCharger = Box(layoutDroit, align="top", width="fill", border=True)
+        Text(layCharger, "Charger un fichier json.", align="top")
+        layBtnCharger = Box(laySauvegarde, align="left")
+        Text(layBtnCharger, "Nom :", size=8, align="top")
+        self.ChargerTextBox = TextBox(layBtnSauvegarde, width=60, align="top")
+        self.ChargerBtn = PushButton(laySauvegarde, command=self.sauvegarde, text="Charger", align="top")
 
         layAttrAjoute.disable()
         layAttrBtnAjoute.disable()
@@ -216,9 +232,19 @@ class Fenetre(App):
 
 
     def supprimeNoeud(self):
-        print("supprimeNoeud")
+        if self.supprCombo.value == "":
+            info("err", "il manque une valeur.")
+            return
+
+        noeud = self.model.search(self.supprCombo.value)
+        if noeud == None:
+            info("err", "Ce noeud n'existe pas.")
+            return
+
+        self.model.deleteNode(noeud)
+
         self.updateVue()
-        pass
+
 
 
     def ajouteRelation(self):
@@ -252,6 +278,23 @@ class Fenetre(App):
         info(f"{nd.name}", nd.__str__() + "\n du type : " + tp)
 
 
+    def sauvegarde(self):
+        if self.SauvegardeTextBox.value == "":
+            m.sauvegarde(self.model)
+
+
+        else:
+            m.sauvegarde(self.model, self.m.sauvegarde(self.model))
+
+
+        self.SauvegardeTextBox.clear()
+        self.updateVue()
+
+    def chargeSave(self):
+        if self.ChargerTextBox.value=="":
+            self.model=m.chargerSauvegarde()
+        else:
+            self.model=m.chargerSauvegarde(self.ChargerTextBox.value)
 # ========================
 # Getter & setters
 
