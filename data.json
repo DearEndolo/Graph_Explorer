@@ -1,0 +1,125 @@
+{
+    "Nourritures": {
+        "name": "Nourritures",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {
+            "Ingrédients": "ako",
+            "Recettes": "ako"
+        },
+        "nextNodes": {}
+    },
+    "Recettes": {
+        "name": "Recettes",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {
+            "Ingrédients": "part_of",
+            "Entrées": "ako",
+            "Plats": "ako",
+            "Dessert": "ako"
+        },
+        "nextNodes": {
+            "Nourritures": "ako"
+        }
+    },
+    "Entrées": {
+        "name": "Entrées",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {},
+        "nextNodes": {
+            "Recettes": "ako"
+        }
+    },
+    "Plats": {
+        "name": "Plats",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {},
+        "nextNodes": {
+            "Recettes": "ako"
+        }
+    },
+    "Dessert": {
+        "name": "Dessert",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {},
+        "nextNodes": {
+            "Recettes": "ako"
+        }
+    },
+    "Ingrédients": {
+        "name": "Ingrédients",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {
+            "Animal": "ako",
+            "Végétal": "ako"
+        },
+        "nextNodes": {
+            "Nourritures": "ako",
+            "Recettes": "part_of"
+        }
+    },
+    "Végétal": {
+        "name": "Végétal",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {},
+        "nextNodes": {
+            "Ingrédients": "ako"
+        }
+    },
+    "Animal": {
+        "name": "Animal",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {
+            "Poisson": "isa",
+            "Viande": "isa"
+        },
+        "nextNodes": {
+            "Ingrédients": "ako"
+        }
+    },
+    "Viande": {
+        "name": "Viande",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {},
+        "nextNodes": {
+            "Animal": "isa"
+        }
+    },
+    "Poisson": {
+        "name": "Poisson",
+        "isOriented": true,
+        "InstanceNode": false,
+        "ConceptNode": true,
+        "attribut": {},
+        "previousNodes": {},
+        "nextNodes": {
+            "Animal": "isa"
+        }
+    }
+}

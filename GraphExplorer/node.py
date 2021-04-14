@@ -23,15 +23,18 @@ class Node(object):
 			return True
 		elif(self is None or n is None):
 			return False
-		return (self.name == n.name and 
+		return (self.name == n.getName() and
 				self.isOriented == n.isOriented and
-				self.previousNodes == n.previousNodes and
-				self.nextNodes == n.nextNodes)
+				self.previousNodes == n.getEntries() and
+				self.nextNodes == n.getExits())
 
 	# Fonction de hashage du noeud, utile pour être utilisé en tant que clé de dictionnaire
 	# Sortie : entier toujours égal à 0
 	def __hash__(self):
 		return 0
+
+	def getOrientation(self):
+		return self.isOriented
 
 	# Procédure de liage de noeuds
 	# Si graphe non orienté : lie le noeud a un autre
@@ -45,7 +48,7 @@ class Node(object):
 			self.previousNodes[node] = weight
 			self.nextNodes = self.previousNodes
 			return node.addNode(self,weight)
-		else: 
+		else:
 			print("The node " + str(self) + " is part of an oriented graph.\nPlease use addEntry(Node) and addExit(Node) methods on that node.")
 
 	# Procédure de liage de noeud
@@ -64,15 +67,37 @@ class Node(object):
 	# Procédure de liage de noeud
 	# Si graphe non orienté : lie le noeud a un noeud d'entré
 	# Entrée : noeud à lier
-	def addEntry(self, node):
+	def addEntry(self, node, weight = 1):
 		if(not(self.isOriented)):
 			print("The node " + str(self) + " is not part of an oriented graph.\nPlease use addNode(Node) method on that node.")
 		else:
 			if(self.previousNodes == None):
 				self.previousNodes = dict()
-			self.previousNodes.append(node)
+			self.previousNodes[node] = weight
 			if(not(self in node.getExits())):
 				node.addExit(self, weight)
+
+	#Procédure de suppression de noeuds en entrée
+	#Si graphe non orienté: ne fait orienté
+	#Entrée: le noeud concerné
+	def deleteEntry(self,node):
+		if(not(self.isOriented)):
+			print("The node " + str(self) + " is not part of an oriented graph.\n")
+		else:
+			self.previousNodes.pop(node)
+			if(self in node.getExits()):
+				node.deleteExit(self)
+
+	#Procédure de suppression de noeuds en sortie
+	#Si graphe non orienté: ne fait orienté
+	#Entrée: le noeud concerné
+	def deleteExit(self,node):
+		if(not(self.isOriented)):
+			print("The node " + str(self) + " is not part of an oriented graph.\n")
+		else:
+			self.nextNodes.pop(node)
+			if(self in node.getEntries()):
+				node.deleteEntry(self)
 
 	# Fonction qui retourne la liste des noeuds de sortie
 	# Sortie : liste de noeuds
@@ -107,9 +132,18 @@ class Node(object):
 
 	# Fonction qui retourne le poids entre le noeud et un autre noeud
 	# Entrée : noeud lié a ce noeud
-	# Sortie : élement correspondant au poids 
+	# Sortie : élement correspondant au poids
 	def getWeight(self,node):
 		if(self.isOriented):
 			if(node in self.getExits()):
 				return self.nextNodes[node]
-		return self.previousNodes[node] 
+		return self.previousNodes[node]
+
+	def getName(self):
+		return self.name
+
+	def deleteLinks(self):
+		for node in self.getEntries():
+			self.deleteEntry(node)
+		for node in self.getExits():
+			self.deleteExit(node)
