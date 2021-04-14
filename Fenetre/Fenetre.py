@@ -229,8 +229,21 @@ class Fenetre(App):
 
     def recherche(self):
         print("Recherche")
-        self.updateVue()
-        pass
+        if self.rechTextBox.value == "":
+            info("err", "entrez un valeur à chercher")
+            return
+
+        nd = self.model.search( self.rechTextBox.value )
+
+        if nd == None:
+            info("Rien trouvé", f"impossiblede trouver un noeud \"{self.rechTextBox.value}\"")
+            return
+
+
+        tp = "Concept"
+        if type(nd) == InstanceNode:
+            tp = "InstanceNode"
+        info(f"{nd.name}", nd.__str__() + "\n du type : " + tp)
 
 
 # ========================
