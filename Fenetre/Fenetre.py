@@ -95,6 +95,12 @@ class Fenetre(App):
         self.rechBtn = PushButton(layRech, command=self.recherche, text="Chercher", align="top")
 
 
+        layAttrAjoute.disable()
+        layAttrBtnAjoute.disable()
+        layAttrSuppr.disable()
+        layAttrBtnSuppr.disable()
+
+
     def updateVue(self):
         print("update")
         self.updateCanvas()
