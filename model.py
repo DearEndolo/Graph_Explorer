@@ -136,7 +136,7 @@ def ajouteAttr(graph, name, attributKeyName, value):
     if(noeud == None):
         print(f"Le noeud {name} n'existe pas")
         return
-    if noeud.getAttr(attributKeyName):
+    if (noeud.existAttr(attributKeyName)):
         print(f"L'attribut {attributKeyName} exise déjà, sa valeur est : {noeud.getAttr(attributKeyName)} ")
         return
     noeud.addAttr(attributKeyName, value)
@@ -148,8 +148,9 @@ def changeAttribut(graph, name, attributKeyName, value):
     if(noeud == None):
         print(f"Le noeud {name} n'existe pas")
         return
-    if noeud.getAttr(attributKeyName)==None:
+    if (not(noeud.existAttr(attributKeyName))):
         print(f"L'attribut {attributKeyName} n'existe pas")
+        return
     noeud.updateAttr(attributKeyName, value)
 
 
@@ -290,6 +291,7 @@ def fromNodeToNode(graph,name1,name2):
             bontab.append(list())
         for i in range(len(tab)-1,-1,-1):
             for elem in tab[i]:
+                elem.show(graph)
                 bontab[len(tab)-1-i].append(elem)
         
         return bontab
