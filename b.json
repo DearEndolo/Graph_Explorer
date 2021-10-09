@@ -9,7 +9,8 @@
         },
         "previousNodes": {
             "Ingrédients": "ako",
-            "Recettes": "ako"
+            "Recettes": "ako",
+            "aaaaaaaaaaa": "isa"
         },
         "nextNodes": {}
     },
@@ -122,6 +123,17 @@
         "previousNodes": {},
         "nextNodes": {
             "Animal": "isa"
+        }
+    },
+    "aaaaaaaaaaa": {
+        "name": "aaaaaaaaaaa",
+        "isOriented": true,
+        "InstanceNode": true,
+        "ConceptNode": false,
+        "attribut": "",
+        "previousNodes": {},
+        "nextNodes": {
+            "Nourritures": "isa"
         }
     }
 }

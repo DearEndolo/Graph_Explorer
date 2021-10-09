@@ -160,14 +160,23 @@ def sauvegarde(graph, nomFichier="data.json"):
     rel = Relation()
     for noeud in listNoeuds:
 
+        if type(noeud) != InstanceNode:
 
-        temp = {
-            "name": noeud.name,
-            "isOriented": noeud.isOriented,
-            "InstanceNode": type(noeud) == InstanceNode,
-            "ConceptNode": type(noeud) == ConceptNode,
-            "attribut" : noeud.getAllAttr()
-        }
+            temp = {
+                "name": noeud.name,
+                "isOriented": noeud.isOriented,
+                "InstanceNode": type(noeud) == InstanceNode,
+                "ConceptNode": type(noeud) == ConceptNode,
+                "attribut" : noeud.getAllAttr()
+            }
+        else:
+            temp = {
+                "name": noeud.name,
+                "isOriented": noeud.isOriented,
+                "InstanceNode": type(noeud) == InstanceNode,
+                "ConceptNode": type(noeud) == ConceptNode,
+                "attribut" : ""
+            }
         temp["previousNodes"] = {}
         temp["nextNodes"]= {}
         for noeudPrec in noeud.previousNodes:
