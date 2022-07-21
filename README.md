@@ -8,4 +8,4 @@ Credits :
 	Belhaouzia Zohir @mrBELLAZIA
 	     Jubard Théo @jubardt
 	 Lacerenza Loris @LuxemTheFez
-	     Laffont Léo @DearEndolo
+	     Laffont Léo @leolaf
