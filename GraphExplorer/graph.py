@@ -1,7 +1,7 @@
 from GraphExplorer import Queue, Stack, Relation, InstanceNode, ConceptNode
 
 
-class Graph(object):
+class Graph:
 
 	# Constructeur
 	# Entrée : liste de noeud (facultatif, par défaut : liste vide)
@@ -216,14 +216,14 @@ class Graph(object):
 	def getInstances(self):
 		res = []
 		for n in self.getNodeSet():
-			if type(n) == GraphExplorer.InstanceNode:
+			if type(n) == InstanceNode:
 				res += [n]
 		return res
 
 	def getConcepts(self):
 		res = []
 		for n in self.getNodeSet():
-			if type(n) == GraphExplorer.ConceptNode:
+			if type(n) == ConceptNode:
 				res += [n]
 		return res
 

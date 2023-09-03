@@ -1,4 +1,4 @@
-class Node(object):
+class Node:
 
 	# Constructeur
 	# Entrées : nom -> string

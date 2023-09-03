@@ -1,4 +1,4 @@
-class Queue(object):
+class Queue:
 	
 	# Constructeur
 	# Entrée : liste (facultative, par défaut : liste vide)

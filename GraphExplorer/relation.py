@@ -1,4 +1,4 @@
-class Relation(object):
+class Relation:
 	"""docstring for Relation"""
 
 	AKO = 1

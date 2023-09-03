@@ -1,4 +1,4 @@
-class Stack(object):
+class Stack:
 
 	# Constructeur
 	# Entrée : liste (facultative, par défaut : liste vide)
