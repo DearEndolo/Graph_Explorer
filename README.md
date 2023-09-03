@@ -1,7 +1,7 @@
 # Graph_Explorer
-Package useful in order to create, browse and manage graphs
+Create, browse and manage graphs
 
-FREE TO USE
+CC0
 
 Credits : 
 * Bajt Arthur @ArthurBajt

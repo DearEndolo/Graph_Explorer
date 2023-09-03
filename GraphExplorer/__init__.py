@@ -1,11 +1,7 @@
-from .queue import *
-from .stack import *
-from .relation import *
-from .node import *
-from .conceptNode import *
-from .instanceNode import *
-from .graph import *
-
-"""
-Le package du projet
-"""
+from .Queue import Queue
+from .Stack import Stack
+from .Relation import Relation
+from .Node import Node
+from .ConceptNode import ConceptNode
+from .InstanceNode import InstanceNode
+from .Graph import Graph
