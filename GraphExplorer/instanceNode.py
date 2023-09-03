@@ -12,16 +12,19 @@ class InstanceNode(Node):
 
 	def getDistance(self):
 		return self.distance
+	
 	def setDistance(self,value):
 		self.distance = value
 
 	def getColor(self):
 		return self.color
+	
 	def setColor(self,value):
 		self.color = value
 
 	def getMarked(self):
 		return self.marked
+	
 	def setMarked(self,value):
 		self.marked = value
 

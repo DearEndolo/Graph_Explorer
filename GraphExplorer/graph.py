@@ -1,33 +1,44 @@
-from GraphExplorer import Queue, Stack, Relation, InstanceNode, ConceptNode
-
+from typing import List, Any
+from GraphExplorer import Queue, Stack, Relation, Node, InstanceNode, ConceptNode
 
 class Graph:
 
-	# Constructeur
-	# Entrée : liste de noeud (facultatif, par défaut : liste vide)
-	def __init__(self, set=[]):
-		self.set = set
+	def __init__(
+		self, 
+		set: List[Node] | None = None
+	) -> None:
+		self.set : List[Node] = set or []
 		self.relation = Relation()
 
+	def __str__(self) -> str:
+		graph_str = "[\n"
+		for node in self.set:
+			graph_str += "\t"
+			graph_str += node
+			graph_str += "\n"
+		graph_str = "]"
+		return graph_str
+		
+
 	# Procédure d'ajout de noeud au graphe
-	def addNode(self, n):
+	def addNode(self, n: Node) -> None:
 		if(self.set == None):
 			self.set = [n]
 		else:
 			self.set.append(n)
 
 	# Procédure de suppression d'un noeud du graphe
-	def deleteNode(self, node):
+	def deleteNode(self, node: Node) -> None:
 		node.deleteLinks()
 		self.set.pop(self.set.index(node))
 
 
 	# Fonction de récupération des noeuds du graphes
 	# Sorties : liste de noeud
-	def getNodeSet(self):
+	def getNodeSet(self) -> List[Node]:
 		return self.set
 
-	def path_in_width(self, startingNode):
+	def path_in_width(self, startingNode: Node) -> List[List[Node]]:
 		queue = Queue()
 		for node in self.getNodeSet():
 			node.tree = None
@@ -57,7 +68,7 @@ class Graph:
 			node.color = "black"
 		return self.tabNiveau()
 
-	def deep_traversal(self, startingNode):
+	def deep_traversal(self, startingNode) -> List[List[Node]]:
 		nodeStack = Stack()
 		for node in self.getNodeSet():
 			node.setMarked(False)
@@ -90,29 +101,30 @@ class Graph:
 
 		return tab
 
-	def __same_values_in_it(self, tab1, tab2):
-		res = len(tab1) == len(tab2)
-		if res:
-			for var in tab1:
-				res = res and var in tab2
-		return res
+	def __same_values_in_it(self, tab1: List[Any], tab2: List[Any]) -> bool:
+		if len(tab1) != len(tab2):
+			return False
+		for var in tab1:
+			if var not in tab2:
+				return False
+		return True
 
-	def maxNiveau(self):
+	def maxNiveau(self) -> int:
 		maxi = 0
 		for node in self.getNodeSet():
 			if node.getDistance() != None and node.getDistance() > maxi:
 				maxi = node.getDistance()
 		return maxi
 
-	def tabNiveau(self):
+	def tabNiveau(self) -> List[List[Node]]:
 		tab = list()
-		for i in range(0,self.maxNiveau()+1):
+		for _ in range(0,self.maxNiveau()+1):
 			tab.append(list())
 		for node in self.getNodeSet():
 			tab[node.getDistance()].append(node)
 		return tab
 
-	def dijkstra(self, startingNode):
+	def dijkstra(self, startingNode: Node) -> List[List[Node]]:
 		p = Graph()
 		nodes = self.getNodeSet()
 		for node in nodes:
@@ -143,7 +155,14 @@ class Graph:
 			print(f"{node} : {node.distance}")
 		return self.tabNiveau()
 
-	def findNodeFromNode(self,tab,newGraph,nodeCour,nodeArrive,niveau):
+	def findNodeFromNode(
+		self,
+		tab: List[List[Node]],
+		newGraph: "Graph",
+		nodeCour: Node,
+		nodeArrive: Node,
+		niveau: int
+	) -> bool:
 		print(nodeCour)
 		if(nodeCour.getName() == nodeArrive.getName()):
 			if(type(nodeCour) == InstanceNode):
@@ -173,7 +192,7 @@ class Graph:
 						return True
 		return False
 
-	def fromNodeToNode(self,node1,node2):
+	def fromNodeToNode(self,node1: Node,node2: Node) -> "Graph" | None:
 		tabParcours = self.deep_traversal(node1);
 		newGraph = Graph()
 		newGraph.setRelation(self.relation)
@@ -184,48 +203,48 @@ class Graph:
 
 
 
-	def search(self, name):
+	def search(self, name: str) -> Node | None:
 		for node in self.getNodeSet():
 			if node.getName() == name:
 				return node
 		return None
 
-	def size(self):
+	def size(self) -> int:
 		return len(self.set)
 
-	def addRelation(self,name):
+	def addRelation(self, name: str) -> None:
 		self.relation.add(name)
 
-	def getRelation(self,name):
+	def getRelation(self, name: str) -> Relation:
 		return self.relation.get(name)
 
-	def existRelation(self, name):
+	def existRelation(self, name: str) -> bool:
 		return self.relation.exist(name)
 
-	def setRelation(self, rel):
+	def setRelation(self, rel: Relation) -> None:
 		self.relation = rel
 
-	def fetchRelation(self, name):
+	def fetchRelation(self, name: str) -> Relation:
 		if(not(self.relation.exist(name))):
 			self.relation.add(name)
 		return self.relation.get(name)
 
-	def getRelationObj(self):
+	def getRelationObj(self) -> Relation:
 		return self.relation
 
-	def getInstances(self):
+	def getInstances(self) -> List[InstanceNode]:
 		res = []
 		for n in self.getNodeSet():
 			if type(n) == InstanceNode:
-				res += [n]
+				res.append(n)
 		return res
 
-	def getConcepts(self):
+	def getConcepts(self) -> List[ConceptNode]:
 		res = []
 		for n in self.getNodeSet():
 			if type(n) == ConceptNode:
 				res += [n]
 		return res
 
-	def getNameRelation(self, node1, node2):
+	def getNameRelation(self, node1: Node, node2: Node) -> Node:
 		return self.relation.getNameByValue(node1.getWeight(node2))
